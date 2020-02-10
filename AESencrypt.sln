@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.27428.2015
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AESencrypt", "AESencrypt\AESencrypt.csproj", "{BF6003E7-3E46-478B-8AF2-91B59F398312}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EncryptionTest", "EncryptionTest\EncryptionTest.csproj", "{5614BB3D-4341-4FA3-9356-93A44BAD3557}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{BF6003E7-3E46-478B-8AF2-91B59F398312}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BF6003E7-3E46-478B-8AF2-91B59F398312}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BF6003E7-3E46-478B-8AF2-91B59F398312}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BF6003E7-3E46-478B-8AF2-91B59F398312}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5614BB3D-4341-4FA3-9356-93A44BAD3557}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5614BB3D-4341-4FA3-9356-93A44BAD3557}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5614BB3D-4341-4FA3-9356-93A44BAD3557}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5614BB3D-4341-4FA3-9356-93A44BAD3557}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {598C39DB-F02A-49E8-8AD1-72E9DE1DBA01}
+	EndGlobalSection
+EndGlobal
