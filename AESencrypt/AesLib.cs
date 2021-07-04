@@ -31,10 +31,11 @@ namespace AesLib
         private string showRounds;
         private int counter;
 
+        public Dictionary<int, int[,]> results = new Dictionary<int, int[,]> ();
 
         private void BuildSbox()
         {
-            // // populate the Sbox matrix
+            // populate the Sbox matrix
             this.Sbox = new byte[16, 16] {
                    /* 0     1     2     3     4     5     6     7     8     9     a     b     c     d     e     f */
             /*0*/  {0x63, 0x7c, 0x77, 0x7b, 0xf2, 0x6b, 0x6f, 0xc5, 0x30, 0x01, 0x67, 0x2b, 0xfe, 0xd7, 0xab, 0x76},
@@ -76,7 +77,8 @@ namespace AesLib
             /*c*/  {0x1f, 0xdd, 0xa8, 0x33, 0x88, 0x07, 0xc7, 0x31, 0xb1, 0x12, 0x10, 0x59, 0x27, 0x80, 0xec, 0x5f},
             /*d*/  {0x60, 0x51, 0x7f, 0xa9, 0x19, 0xb5, 0x4a, 0x0d, 0x2d, 0xe5, 0x7a, 0x9f, 0x93, 0xc9, 0x9c, 0xef},
             /*e*/  {0xa0, 0xe0, 0x3b, 0x4d, 0xae, 0x2a, 0xf5, 0xb0, 0xc8, 0xeb, 0xbb, 0x3c, 0x83, 0x53, 0x99, 0x61},
-            /*f*/  {0x17, 0x2b, 0x04, 0x7e, 0xba, 0x77, 0xd6, 0x26, 0xe1, 0x69, 0x14, 0x63, 0x55, 0x21, 0x0c, 0x7d} };
+            /*f*/  {0x17, 0x2b, 0x04, 0x7e, 0xba, 0x77, 0xd6, 0x26, 0xe1, 0x69, 0x14, 0x63, 0x55, 0x21, 0x0c, 0x7d}
+            };
 
         }  // BuildInvSbox()
 
@@ -124,12 +126,7 @@ namespace AesLib
                 this.numRounds = 14; // rounds for algorithm = 14
             }
         }  // set key size
-
-        //private void SetDirection(Direction direction)
-        //{
-        //    dir = direction;
-        //}
-
+        
 
         public Aes(KeySize keySize, byte[] keyBytes)
         {
@@ -270,6 +267,9 @@ namespace AesLib
             }
         }  // InvMixColumns
 
+        // ======================
+        // GALOIS FIELD CALCULATIONS
+        // ======================
 
         private static byte gfmultby01(byte b)
         {
@@ -357,7 +357,9 @@ namespace AesLib
                 this.keySchedule[row, 3] = (byte)((int)this.keySchedule[row - keySize, 3] ^ (int)temp[3]);
 
             }  // for loop
-        }  // KeyExpansion()
+
+            Console.WriteLine(ShowSchedule());
+        }  // KeyExpansion
 
         private byte[] SubWord(byte[] word)
         {
@@ -465,7 +467,10 @@ namespace AesLib
         // encrypt a 16-byte input string (16 symbols)
         public byte[] Encrypt(byte[] input)
         {
-            counter++; // counter will show how many times the encryption has been called, for now will show only 1st encryption cycle
+            // counter will show how many times the encryption has been called (number of blocks), for now will show only 1st encryption cycle
+            counter++;
+
+            Console.WriteLine("[AES LIB] Blocks of text encrypted " + counter);
 
             this.State = new byte[4, 4];  // block size is always [4,4] for AES
             byte[] output = new byte[16];
@@ -475,32 +480,20 @@ namespace AesLib
                 //  fill the state matrix vertically(!) with the first 16 bytes
                 this.State[i % 4, i / 4] = input[i];
             }
-
-            if (counter == 1)
-            {
-                this.showRounds += "\n[AES LIB] First state matrix is";
-                this.showRounds += "\n" + DumpTwoByTwo(State);
-            }
             
-
             Console.WriteLine("[AES LIB] First state matrix is");
             Console.WriteLine(DumpTwoByTwo(State));
 
-
+            
             // STEP 1 / Round 0 - the first round key is added
             // === Add round key ===
             // Adding the first round key is called key whitening
             AddRoundKey(0);
 
-            if (counter == 1)
-            {
-                this.showRounds += "\n[AES LIB] ROUND 0";
-                this.showRounds += "\n" + DumpTwoByTwo(State);
-            }
-
             Console.WriteLine("[AES LIB] ROUND 0");
             Console.WriteLine(DumpTwoByTwo(State));
-
+            
+            
             for (int round = 1; round < numRounds; round++)  // main loop
             {
                 // Done in order:
@@ -512,16 +505,11 @@ namespace AesLib
                 ShiftRows();
 
                 // STEP 4 === Mix columns ===
-                MixColumns(); // this can be made in an if statement but the number of checks is not worth it
+                // this can be made in an if statement but the number of checks is not worth it
+                MixColumns();
 
                 // STEP 5 === Add round key ===
                 AddRoundKey(round);
-
-                if (counter == 1)
-                {
-                    this.showRounds += "\n[AES LIB] ROUND " + round;
-                    this.showRounds += "\n" + DumpTwoByTwo(State);
-                }
 
                 Console.WriteLine("[AES LIB] ROUND " + round);
                 Console.WriteLine(DumpTwoByTwo(State));
@@ -529,17 +517,12 @@ namespace AesLib
             }  // main loop
 
 
+
             // STEP 6 / Last Round
             SubBytes(this.Sbox);
             ShiftRows();
             // MIX COLUMNS IS NOT DONE IN THE LAST ITERATION
             AddRoundKey(numRounds);
-
-            if (counter == 1)
-            {
-                this.showRounds += "\n[AES LIB] LAST ROUND";
-                this.showRounds += "\n" + DumpTwoByTwo(State);
-            }
 
             Console.WriteLine("[AES LIB] LAST ROUND");
             Console.WriteLine(DumpTwoByTwo(State));
@@ -549,6 +532,8 @@ namespace AesLib
             {
                 output[i] = this.State[i % 4, i / 4];
             }
+
+            Dump();
 
             return output;
         }  // Encrypt Method
@@ -572,14 +557,20 @@ namespace AesLib
                 if (text.Length - i < 16)
                 {
                     //if the last block is smaller than our needed chunk size, add the needed number of spaces
-                    //blocks.Add(text.Substring(i) + new string((char)0x00, 16 - (text.Length - i)));
-                    blocks.Add(text.Substring(i) + new string(' ', 16 - (text.Length - i)));
+                    string lastString = text.Substring(i);
+                    int ulength = lastString.Length;
+                    string newLastString = lastString + new string((char)0x00, 16 - (text.Length - i + 1)) + (char)0x01;
+                    int length = newLastString.Length;
+                    blocks.Add(newLastString);
+
+                    //blocks.Add(text.Substring(i) + new string((char)0x00, 16 - (text.Length - i - 1)) + (char)0x01);
+                    //blocks.Add(text.Substring(i) + new string(' ', 16 - (text.Length - i)));
                 }
                 else
                 {
+                    int thisLength = text.Substring(i, 16).Length;
                     blocks.Add(text.Substring(i, 16));
                 }
-
             }
 
             //
@@ -588,15 +579,20 @@ namespace AesLib
 
             foreach (string block in blocks)
             {
+                Console.WriteLine("[AES LIB] BLOCK OF TEXT");
+                Console.WriteLine(block);
+                Console.WriteLine();
+
                 // splitting string chunks into byte blocks
                 byte[] byteBlock = Encoding.UTF8.GetBytes(block);
-                processedBytes = this.Encrypt(byteBlock);
 
+                // Encryption
+                processedBytes = this.Encrypt(byteBlock);
+                
                 for (int j = 0; j < 16; j++)
                 {
                     encryptedResult.Add(processedBytes[j]);
                 }
-
             }
 
             return encryptedResult.ToArray();
@@ -607,7 +603,7 @@ namespace AesLib
         // decrypt a 16-byte input string (16 symbols)
         public byte[] Decrypt(byte[] input)  // decipher 16-byte input
         {
-            counter++; // counter will show how many times the encryption has been called, for now will show only 1st encryption cycle
+            counter++;
 
             this.State = new byte[4, 4];  // block size is always [4,4] for AES
             byte[] output = new byte[16];
@@ -624,12 +620,6 @@ namespace AesLib
             // === Add round key ===
             // key whitening
             AddRoundKey(numRounds); // starting with the LAST key
-
-            if (counter == 1)
-            {
-                this.showRounds += "\n[AES LIB] DECRYPTION ROUND 0";
-                this.showRounds += "\n" + DumpTwoByTwo(State);
-            }
 
             Console.WriteLine("[AES LIB] DECRYPTION ROUND 0");
             Console.WriteLine(DumpTwoByTwo(State));
@@ -650,24 +640,12 @@ namespace AesLib
                 // STEP 5 === Inverse Mix columns ===
                 InvMixColumns();
 
-                if (counter == 1)
-                {
-                    this.showRounds += "\n[AES LIB] ROUND " + round;
-                    this.showRounds += "\n" + DumpTwoByTwo(State);
-                }
-
             }  // main loop
 
             // STEP 6 / Last Round
             InvShiftRows();
             SubBytes(this.iSbox);
             AddRoundKey(0);
-
-            if (counter == 1)
-            {
-                this.showRounds += "\n[AES LIB] DECRYPTION LAST ROUND";
-                this.showRounds += "\n" + DumpTwoByTwo(State);
-            }
 
             Console.WriteLine("[AES LIB] DECRYPTION LAST ROUND");
             Console.WriteLine(DumpTwoByTwo(State));
