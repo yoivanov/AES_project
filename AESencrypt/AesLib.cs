@@ -125,6 +125,11 @@ namespace AesLib
             }
         }  // set key size
 
+        public int GetNumRounds()
+        {
+            return numRounds;
+        }
+
         //private void SetDirection(Direction direction)
         //{
         //    dir = direction;
@@ -720,6 +725,8 @@ namespace AesLib
             return encryptedResult.ToArray();
 
         } // Decrypt Long Method
+
+        public int GetNumberOfRounds() => this.numRounds;
 
     }  // class Aes
 }  // namespace AesLib

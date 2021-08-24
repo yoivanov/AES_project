@@ -106,13 +106,27 @@
                 <RowDefinition Height="20"/>
                 <RowDefinition/>
             </Grid.RowDefinitions>
-            <TextBlock Grid.Row="0" Text="AES steps:"/>
-            <WrapPanel Grid.Row="1" 
-                        x:Name="stepsList"
+
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <TextBlock Grid.Row="0" Grid.Column="0" Text="Pre steps:"/>
+            <WrapPanel Grid.Row="1" Grid.Column="0"
+                        x:Name="preStepsList"
                         HorizontalAlignment="Left"
                         Orientation="Vertical"
                         Visibility="{Binding ElementName=showSteps, Path=IsChecked, Converter={StaticResource BooleanToVisibilityConverter}}">
             </WrapPanel>
+            <TextBlock Grid.Row="0" Grid.Column="1" Text="AES steps:"/>
+            <WrapPanel Grid.Row="1" Grid.Column="1"
+                       x:Name="aesStepsList"
+                       HorizontalAlignment="Left"
+                       Orientation="Vertical"
+                       Visibility="{Binding ElementName=showSteps, Path=IsChecked, Converter={StaticResource BooleanToVisibilityConverter}}">
+            </WrapPanel>
+
         </Grid>
         
     </Grid>

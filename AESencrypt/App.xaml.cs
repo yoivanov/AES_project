@@ -17,6 +17,12 @@ namespace AESencrypt
     {
         private static AesLib.Aes encryptor;
         private static AesLib.Aes decryptor;
+        private static int numberOfRouds;
+
+        public static int NumberOfRounds
+        {
+            get => numberOfRouds;
+        }
 
         public static Boolean IsKeyCorrect(string key, int requiredKeyLength)
         {
@@ -80,6 +86,7 @@ namespace AESencrypt
 
             AesLib.Aes a = new AesLib.Aes(size, keybytes);
             encryptor = a;
+            numberOfRouds = a.GetNumberOfRounds();
 
             byte[] enciphered = a.AESEncypherLong(text);
 
@@ -96,6 +103,7 @@ namespace AESencrypt
 
             AesLib.Aes b = new AesLib.Aes(size, keybytes);
             decryptor = b;
+            numberOfRouds = b.GetNumberOfRounds();
 
             byte[] deciphered = b.AESDecypherLong(text);
 

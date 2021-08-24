@@ -79,35 +79,39 @@ namespace AESencrypt
         {
             // In the future the buttons should be dynamically generated
 
-            stepsList.Children.Clear();
+            preStepsList.Children.Clear();
+            aesStepsList.Children.Clear();
 
             Button keyScheduleButton = new Button
             {
                 Content = "key schedule"
             };
             keyScheduleButton.Click += KeyScheduleButton_Click;
-            stepsList.Children.Add(keyScheduleButton);
+            preStepsList.Children.Add(keyScheduleButton);
 
             Button sBoxButton = new Button
             {
                 Content = "sBox"
             };
             sBoxButton.Click += sBoxButton_Click;
-            stepsList.Children.Add(sBoxButton);
+            preStepsList.Children.Add(sBoxButton);
 
             Button roundConstantButton = new Button
             {
                 Content = "round constants"
             };
             roundConstantButton.Click += roundConstantButton_Click;
-            stepsList.Children.Add(roundConstantButton);
+            preStepsList.Children.Add(roundConstantButton);
 
-            Button roundsButton = new Button
+            for (int i = 0; i < App.NumberOfRounds; i++)
             {
-                Content = "round matrixes"
-            };
-            roundsButton.Click += roundsButton_Click;
-            stepsList.Children.Add(roundsButton);
+                Button roundsButton = new Button
+                {
+                    Content = $"Step {i + 1}"
+                };
+                roundsButton.Click += roundsButton_Click;
+                aesStepsList.Children.Add(roundsButton);
+            }
 
         }
 
@@ -128,6 +132,8 @@ namespace AESencrypt
 
         private void roundsButton_Click(object sender, RoutedEventArgs e)
         {
+            var button = sender as Button;
+            var roundIndex = int.Parse(button.Content.ToString().Split(' ')[1]);
             MessageBox.Show(App.ShowRounds());
         }
 
@@ -162,36 +168,39 @@ namespace AESencrypt
         {
             // In the future the buttons should be dynamically generated
 
-            stepsList.Children.Clear();
+            preStepsList.Children.Clear();
+            aesStepsList.Children.Clear();
 
             Button DkeyScheduleButton = new Button
             {
                 Content = "key schedule"
             };
             DkeyScheduleButton.Click += DKeyScheduleButton_Click;
-            stepsList.Children.Add(DkeyScheduleButton);
+            preStepsList.Children.Add(DkeyScheduleButton);
 
             Button DsBoxButton = new Button
             {
                 Content = "sBox"
             };
             DsBoxButton.Click += DsBoxButton_Click;
-            stepsList.Children.Add(DsBoxButton);
+            preStepsList.Children.Add(DsBoxButton);
 
             Button DroundConstantButton = new Button
             {
                 Content = "round constants"
             };
             DroundConstantButton.Click += DroundConstantButton_Click;
-            stepsList.Children.Add(DroundConstantButton);
+            preStepsList.Children.Add(DroundConstantButton);
 
-            Button DroundsButton = new Button
+            for (int i = 0; i < App.NumberOfRounds; i++)
             {
-                Content = "round matrixes"
-            };
-            DroundsButton.Click += DroundsButton_Click;
-            stepsList.Children.Add(DroundsButton);
-
+                Button roundsButton = new Button
+                {
+                    Content = $"Step {i + 1}"
+                };
+                roundsButton.Click += DroundsButton_Click;
+                aesStepsList.Children.Add(roundsButton);
+            }
         }
 
         private void DKeyScheduleButton_Click(object sender, RoutedEventArgs e)
