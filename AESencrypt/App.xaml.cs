@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Configuration;
 using System.Data;
 using System.Linq;
@@ -24,7 +25,7 @@ namespace AESencrypt
             get => numberOfRouds;
         }
 
-        public static Boolean IsKeyCorrect(string key, int requiredKeyLength)
+        public static bool IsKeyCorrect(string key, int requiredKeyLength)
         {
             if (key.Length == requiredKeyLength)
             {
@@ -36,7 +37,7 @@ namespace AESencrypt
             }
         }
 
-        public static Boolean IsDecryptStringCorrect(string decryptString)
+        public static bool IsDecryptStringCorrect(string decryptString)
         {
             if (decryptString.Length % 16 == 0)
             {
@@ -66,6 +67,11 @@ namespace AESencrypt
         public static string ShowRcon()
         {
             return encryptor.ShowRcon();
+        }
+
+        public static ObservableCollection<byte> ShowStep()
+        {
+            return encryptor.getMockData();
         }
 
         public static string ShowRounds()

@@ -134,7 +134,9 @@ namespace AESencrypt
         {
             var button = sender as Button;
             var roundIndex = int.Parse(button.Content.ToString().Split(' ')[1]);
-            MessageBox.Show(App.ShowRounds());
+
+            StepWIndow stepWindow = new StepWIndow();
+            stepWindow.Show();
         }
 
 
@@ -162,6 +164,7 @@ namespace AESencrypt
                 GenerateStepButtonsDecrypt();
             }
         }
+
 
 
         private void GenerateStepButtonsDecrypt()
