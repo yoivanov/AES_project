@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Collections.ObjectModel;
+using System.Data;
+using AESencrypt;
 
 namespace AesLib
 {
@@ -26,7 +28,7 @@ namespace AesLib
         private byte[,] Sbox;   // Substitution box
         private byte[,] iSbox;  // inverse Substitution box
 
-        private ObservableCollection<byte> mockData;
+        private MatrixModel[] mockData;
 
         private byte[,] keySchedule;  // key schedule array
         private byte[,] Rcon;   // Round constants array
@@ -34,6 +36,16 @@ namespace AesLib
 
         private string showRounds;
         private int counter;
+
+        List<MatrixModel[]> stepsData;
+
+        List<MatrixModel[]> beforeSubBytes;
+        List<MatrixModel[]> afterSubBytes;
+
+
+
+
+
 
 
         private void BuildSbox()
@@ -104,21 +116,49 @@ namespace AesLib
 
         private void makeMockData()
         {
-            this.mockData = new ObservableCollection< byte>
-            {0x54, 0x4f, 0x4e, 0x20};
+            //this.mockData = new ObservableCollection<byte>
+            //{0x54, 0x4f, 0x4e, 0x20};
+
+            mockData = new MatrixModel[4];
+
+            //DataColumn column;
+            //DataRow row;
+
+            //column = new DataColumn();
+            //column.DataType = Type.GetType("System.Byte");
+            //column.ColumnName = "id";
+            //mockData.Columns.Add(column);
+
+            ////row = mockData.NewRow();
+            ////row["id"] = 0x54;
 
 
-            ObservableCollection<byte> thing = new ObservableCollection<byte> { 0x54, 0x4f, 0x4e, 0x20 };
+            ////new object[] { 0x54, 0x4f, 0x4e, 0x20 };
+            ////mockData.Rows.Add(row);
 
+            //column = new DataColumn();
+            //column.DataType = Type.GetType("System.Byte");
+            //mockData.Columns.Add(column);
 
+            //column = new DataColumn();
+            //column.DataType = Type.GetType("System.Byte");
+            //mockData.Columns.Add(column);
 
+            //column = new DataColumn();
+            //column.DataType = Type.GetType("System.Byte");
+            //mockData.Columns.Add(column);
+
+            //mockData.Rows.Add(new object[] { 0x54, 0x4f, 0x4e, 0x20 });
+            //mockData.Rows.Add(new object[] { 0x20, 0x20, 0x65, 0x6f });
+            //mockData.Rows.Add(new object[] { 0x6f, 0x65, 0x6e, 0x77 });
+            //mockData.Rows.Add(new object[] { 0x77, 0x6e, 0x69, 0x54 });
 
 
             //{
-            //    {0x54, 0x4f, 0x4e, 0x20},
-            //    {0x20, 0x20, 0x65, 0x6f},
-            //    {0x6f, 0x65, 0x6e, 0x77},
-            //    {0x77, 0x6e, 0x69, 0x54},
+            //{ 0x54, 0x4f, 0x4e, 0x20},
+            //    { 0x20, 0x20, 0x65, 0x6f},
+            //    { 0x6f, 0x65, 0x6e, 0x77},
+            //    { 0x77, 0x6e, 0x69, 0x54},
 
             //    {0x00, 0x3c, 0x6e, 0x47},
             //    {0x1f, 0x4e, 0x22, 0x74},
@@ -177,11 +217,33 @@ namespace AesLib
             //};
         }
 
-        public ObservableCollection<byte> getMockData()
+        //public MatrixModel[] getMockData(int index)
+        //{
+        //    switch (index)
+        //    {
+        //        case 1:
+        //            return new MatrixModel[]
+        //            {
+        //                new MatrixModel() { Col1 = 0x54, Col2 = 0x4f, Col3 = 0x4e, Col4 = 0x20 },
+        //                new MatrixModel() { Col1 = 0x54, Col2 = 0x4f, Col3 = 0x4e, Col4 = 0x20 },
+        //                new MatrixModel() { Col1 = 0x54, Col2 = 0x4f, Col3 = 0x4e, Col4 = 0x20 },
+        //                new MatrixModel() { Col1 = 0x54, Col2 = 0x4f, Col3 = 0x4e, Col4 = 0x20 }
+        //            };
+        //        default:
+        //            return new MatrixModel[4];
+        //    }
+
+        //}
+
+        public MatrixModel[] GetBeforeSubBytes(int index)
         {
-            return mockData;
+            return this.beforeSubBytes.ElementAt(index);
         }
 
+        public MatrixModel[] GetAfterSubBytes(int index)
+        {
+            return this.afterSubBytes.ElementAt(index);
+        }
 
 
         // ======================
@@ -245,7 +307,7 @@ namespace AesLib
         // HELPER METHODS
         // ======================
 
-        
+
         private void AddRoundKey(int round)
         {
 
@@ -325,13 +387,13 @@ namespace AesLib
 
             for (int c = 0; c < 4; ++c)
             {
-                this.State[0, c] = 
+                this.State[0, c] =
                     (byte)((int)gfmultby02(temp[0, c]) ^ (int)gfmultby03(temp[1, c]) ^ (int)gfmultby01(temp[2, c]) ^ (int)gfmultby01(temp[3, c]));
-                this.State[1, c] = 
+                this.State[1, c] =
                     (byte)((int)gfmultby01(temp[0, c]) ^ (int)gfmultby02(temp[1, c]) ^ (int)gfmultby03(temp[2, c]) ^ (int)gfmultby01(temp[3, c]));
-                this.State[2, c] = 
+                this.State[2, c] =
                     (byte)((int)gfmultby01(temp[0, c]) ^ (int)gfmultby01(temp[1, c]) ^ (int)gfmultby02(temp[2, c]) ^ (int)gfmultby03(temp[3, c]));
-                this.State[3, c] = 
+                this.State[3, c] =
                     (byte)((int)gfmultby03(temp[0, c]) ^ (int)gfmultby01(temp[1, c]) ^ (int)gfmultby01(temp[2, c]) ^ (int)gfmultby02(temp[3, c]));
             }
         }  // MixColumns
@@ -350,13 +412,13 @@ namespace AesLib
 
             for (int c = 0; c < 4; ++c)
             {
-                this.State[0, c] = 
+                this.State[0, c] =
                     (byte)((int)gfmultby0e(temp[0, c]) ^ (int)gfmultby0b(temp[1, c]) ^ (int)gfmultby0d(temp[2, c]) ^ (int)gfmultby09(temp[3, c]));
-                this.State[1, c] = 
+                this.State[1, c] =
                     (byte)((int)gfmultby09(temp[0, c]) ^ (int)gfmultby0e(temp[1, c]) ^ (int)gfmultby0b(temp[2, c]) ^ (int)gfmultby0d(temp[3, c]));
-                this.State[2, c] = 
+                this.State[2, c] =
                     (byte)((int)gfmultby0d(temp[0, c]) ^ (int)gfmultby09(temp[1, c]) ^ (int)gfmultby0e(temp[2, c]) ^ (int)gfmultby0b(temp[3, c]));
-                this.State[3, c] = 
+                this.State[3, c] =
                     (byte)((int)gfmultby0b(temp[0, c]) ^ (int)gfmultby0d(temp[1, c]) ^ (int)gfmultby09(temp[2, c]) ^ (int)gfmultby0e(temp[3, c]));
             }
         }  // InvMixColumns
@@ -366,7 +428,7 @@ namespace AesLib
         {
             return b;
         }
-        
+
         private static byte gfmultby02(byte b)
         {
             if (b < 0x80)
@@ -414,7 +476,7 @@ namespace AesLib
                 this.keySchedule[row, 1] = this.key[4 * row + 1];
                 this.keySchedule[row, 2] = this.key[4 * row + 2];
                 this.keySchedule[row, 3] = this.key[4 * row + 3];
-                
+
             }
 
 
@@ -426,7 +488,7 @@ namespace AesLib
                 temp[1] = this.keySchedule[row - 1, 1];
                 temp[2] = this.keySchedule[row - 1, 2];
                 temp[3] = this.keySchedule[row - 1, 3];
-                
+
 
                 if (row % keySize == 0)
                 {
@@ -438,7 +500,7 @@ namespace AesLib
                     temp[1] = (byte)((int)temp[1] ^ (int)this.Rcon[row / keySize, 1]);
                     temp[2] = (byte)((int)temp[2] ^ (int)this.Rcon[row / keySize, 2]);
                     temp[3] = (byte)((int)temp[3] ^ (int)this.Rcon[row / keySize, 3]);
-                    
+
                 }
 
                 // logical XOR is performed
@@ -477,6 +539,32 @@ namespace AesLib
                              .Select(x => Convert.ToByte(hex.Substring(x, 2), 16))
                              .ToArray();
         }
+
+
+
+
+        public void CopyMatrix(byte[,] copyFrom, List<MatrixModel[]> copyTo)
+        {
+            MatrixModel[] temp = new MatrixModel[4];
+
+            for (int i = 0; i < 4; i++)
+            {
+                temp[i] = new MatrixModel
+                {
+                    Col1 = copyFrom[i, 0].ToString("x2"),
+                    Col2 = copyFrom[i, 1].ToString("x2"),
+                    Col3 = copyFrom[i, 2].ToString("x2"),
+                    Col4 = copyFrom[i, 3].ToString("x2"),
+                };
+            }
+
+            copyTo.Add(temp);
+        }
+
+
+
+
+
 
         // ======================
         // VISUAL METHODS
@@ -544,7 +632,7 @@ namespace AesLib
         {
             return Encoding.UTF8.GetString(bytes);
         }
-        
+
 
         /*  
             ======================
@@ -557,6 +645,10 @@ namespace AesLib
         public byte[] Encrypt(byte[] input)
         {
             counter++; // counter will show how many times the encryption has been called, for now will show only 1st encryption cycle
+            beforeSubBytes = new List<MatrixModel[]>();
+            afterSubBytes = new List<MatrixModel[]>();
+
+
 
             this.State = new byte[4, 4];  // block size is always [4,4] for AES
             byte[] output = new byte[16];
@@ -567,12 +659,18 @@ namespace AesLib
                 this.State[i % 4, i / 4] = input[i];
             }
 
+            for (int i = 0; i < State.Length; i++)
+            {
+
+            }
+
             if (counter == 1)
             {
                 this.showRounds += "\n[AES LIB] First state matrix is";
                 this.showRounds += "\n" + DumpTwoByTwo(State);
+                
             }
-            
+
 
             Console.WriteLine("[AES LIB] First state matrix is");
             Console.WriteLine(DumpTwoByTwo(State));
@@ -597,7 +695,9 @@ namespace AesLib
                 // Done in order:
 
                 // STEP 2 === Byte substitution ===
+                CopyMatrix(this.State, beforeSubBytes);
                 SubBytes(this.Sbox);
+                CopyMatrix(this.State, afterSubBytes);
 
                 // STEP 3 === Shift rows ===
                 ShiftRows();
@@ -645,7 +745,7 @@ namespace AesLib
         }  // Encrypt Method
 
 
-        
+
         // Encrypts a sring of any length
         public byte[] AESEncypherLong(string text)
         {

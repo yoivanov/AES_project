@@ -69,9 +69,19 @@ namespace AESencrypt
             return encryptor.ShowRcon();
         }
 
-        public static ObservableCollection<byte> ShowStep()
+        //public static MatrixModel[] ShowStep(int index)
+        //{
+        //    return encryptor.getMockData(index);
+        //}
+
+        public static MatrixModel[] GetBeforeSubBytes(int index)
         {
-            return encryptor.getMockData();
+            return encryptor.GetBeforeSubBytes(index);
+        }
+
+        public static MatrixModel[] GetAfterSubBytes(int index)
+        {
+            return encryptor.GetAfterSubBytes(index);
         }
 
         public static string ShowRounds()

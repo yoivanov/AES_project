@@ -69,6 +69,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="MatrixModel.cs" />
     <Compile Include="StepWIndow.xaml.cs">
       <DependentUpon>StepWIndow.xaml</DependentUpon>
     </Compile>

@@ -135,7 +135,7 @@ namespace AESencrypt
             var button = sender as Button;
             var roundIndex = int.Parse(button.Content.ToString().Split(' ')[1]);
 
-            StepWIndow stepWindow = new StepWIndow();
+            StepWIndow stepWindow = new StepWIndow(roundIndex - 1);
             stepWindow.Show();
         }
 

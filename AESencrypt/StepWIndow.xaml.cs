@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -21,13 +22,14 @@ namespace AESencrypt
     /// </summary>
     public partial class StepWIndow : Window
     {
-        public ObservableCollection<byte> data = new ObservableCollection<byte>();
 
-        public StepWIndow()
+        public StepWIndow(int index)
         {
             InitializeComponent();
-            data = App.ShowStep();
-            MixColDataGrid.ItemsSource = data;
+
+            BeforeSubBytes.ItemsSource = App.GetBeforeSubBytes(index);
+            AfterSubBytes.ItemsSource = App.GetAfterSubBytes(index);
+
         }
 
         private void sBoxButton_Click(object sender, RoutedEventArgs e)

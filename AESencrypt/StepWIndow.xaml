@@ -51,172 +51,38 @@
 
                 <Grid Grid.Row ="1" Grid.Column="0" Background="White" Margin="10" Height="auto">
 
-                    <FlowDocumentScrollViewer>
-                        <FlowDocumentScrollViewer.Resources>
-                            <Style TargetType="TableCell">
-                                <Setter Property="TextAlignment" Value="Center"/>
-                                <Setter Property="FontSize" Value="12"/>
-                                <Setter Property="BorderBrush" Value="Black"/>
-                                <Setter Property="BorderThickness" Value="1"/>
-                                <Setter Property="LineHeight" Value="25"/>
-                                <Setter Property="TextAlignment" Value="Center"/>
-                            </Style>
-                        </FlowDocumentScrollViewer.Resources>
-                        <FlowDocument>
-                            <Table CellSpacing="1">
-                                <Table.Columns>
-                                    <TableColumn/>
-                                    <TableColumn/>
-                                    <TableColumn/>
-                                    <TableColumn/>
-                                </Table.Columns>
-                                <TableRowGroup>
-                                    <TableRow>
-                                        <TableCell>
-                                            <Paragraph>54</Paragraph>
-                                        </TableCell>
-                                        <TableCell>
-                                            <Paragraph>68</Paragraph>
-                                        </TableCell>
-                                        <TableCell>
-                                            <Paragraph>61</Paragraph>
-                                        </TableCell>
-                                        <TableCell>
-                                            <Paragraph>74</Paragraph>
-                                        </TableCell>
-                                    </TableRow>
-                                    <TableRow>
-                                        <TableCell>
-                                            <Paragraph>73</Paragraph>
-                                        </TableCell>
-                                        <TableCell>
-                                            <Paragraph>20</Paragraph>
-                                        </TableCell>
-                                        <TableCell>
-                                            <Paragraph>6D</Paragraph>
-                                        </TableCell>
-                                        <TableCell>
-                                            <Paragraph>79</Paragraph>
-                                        </TableCell>
-                                    </TableRow>
-                                    <TableRow>
-                                        <TableCell>
-                                            <Paragraph>4B</Paragraph>
-                                        </TableCell>
-                                        <TableCell>
-                                            <Paragraph>75</Paragraph>
-                                        </TableCell>
-                                        <TableCell>
-                                            <Paragraph>6E</Paragraph>
-                                        </TableCell>
-                                        <TableCell>
-                                            <Paragraph>67</Paragraph>
-                                        </TableCell>
-                                    </TableRow>
-                                    <TableRow>
-                                        <TableCell>
-                                            <Paragraph>6E</Paragraph>
-                                        </TableCell>
-                                        <TableCell>
-                                            <Paragraph>20</Paragraph>
-                                        </TableCell>
-                                        <TableCell>
-                                            <Paragraph>46</Paragraph>
-                                        </TableCell>
-                                        <TableCell>
-                                            <Paragraph>75</Paragraph>
-                                        </TableCell>
-                                    </TableRow>
-                                </TableRowGroup>
-                            </Table>
-                        </FlowDocument>
-                    </FlowDocumentScrollViewer>
+                    <ScrollViewer VerticalScrollBarVisibility="Hidden">
+                        <DataGrid Name="BeforeSubBytes" CanUserResizeColumns="True" CanUserAddRows="False" IsReadOnly="True" ItemsSource="{Binding}" HeadersVisibility="None">
+                            <DataGrid.CellStyle>
+                                <Style TargetType="DataGridCell">
+                                    <Style.Setters>
+                                        <Setter Property="TextBlock.TextAlignment" Value="Center" />
+                                        <Setter Property="BorderBrush" Value="Black" />
+                                    </Style.Setters>
+                                </Style>
+                            </DataGrid.CellStyle>
+                            <DataGrid.ColumnWidth>*</DataGrid.ColumnWidth>
+                        </DataGrid>
+                    </ScrollViewer>
 
 
                 </Grid>
 
                 <Grid Grid.Row ="1" Grid.Column="1" Background="White" Margin="10">
 
-                    <FlowDocumentScrollViewer>
-                        <FlowDocumentScrollViewer.Resources>
-                            <Style TargetType="TableCell">
-                                <Setter Property="TextAlignment" Value="Center"/>
-                                <Setter Property="FontSize" Value="12"/>
-                                <Setter Property="BorderBrush" Value="Black"/>
-                                <Setter Property="BorderThickness" Value="1"/>
-                                <Setter Property="LineHeight" Value="25"/>
-                                <!--<Setter Property="TextAlignment" Value="Center"/>-->
-                            </Style>
-                        </FlowDocumentScrollViewer.Resources>
-                        <FlowDocument>
-                            <Table CellSpacing="1">
-                                <Table.Columns>
-                                    <TableColumn/>
-                                    <TableColumn/>
-                                    <TableColumn/>
-                                    <TableColumn/>
-                                </Table.Columns>
-                                <TableRowGroup>
-                                    <TableRow>
-                                        <TableCell>
-                                            <Paragraph>54</Paragraph>
-                                        </TableCell>
-                                        <TableCell>
-                                            <Paragraph>68</Paragraph>
-                                        </TableCell>
-                                        <TableCell>
-                                            <Paragraph>61</Paragraph>
-                                        </TableCell>
-                                        <TableCell>
-                                            <Paragraph>74</Paragraph>
-                                        </TableCell>
-                                    </TableRow>
-                                    <TableRow>
-                                        <TableCell>
-                                            <Paragraph>73</Paragraph>
-                                        </TableCell>
-                                        <TableCell>
-                                            <Paragraph>20</Paragraph>
-                                        </TableCell>
-                                        <TableCell>
-                                            <Paragraph>6D</Paragraph>
-                                        </TableCell>
-                                        <TableCell>
-                                            <Paragraph>79</Paragraph>
-                                        </TableCell>
-                                    </TableRow>
-                                    <TableRow>
-                                        <TableCell>
-                                            <Paragraph>4B</Paragraph>
-                                        </TableCell>
-                                        <TableCell>
-                                            <Paragraph>75</Paragraph>
-                                        </TableCell>
-                                        <TableCell>
-                                            <Paragraph>6E</Paragraph>
-                                        </TableCell>
-                                        <TableCell>
-                                            <Paragraph>67</Paragraph>
-                                        </TableCell>
-                                    </TableRow>
-                                    <TableRow>
-                                        <TableCell>
-                                            <Paragraph>6E</Paragraph>
-                                        </TableCell>
-                                        <TableCell>
-                                            <Paragraph>20</Paragraph>
-                                        </TableCell>
-                                        <TableCell>
-                                            <Paragraph>46</Paragraph>
-                                        </TableCell>
-                                        <TableCell>
-                                            <Paragraph>75</Paragraph>
-                                        </TableCell>
-                                    </TableRow>
-                                </TableRowGroup>
-                            </Table>
-                        </FlowDocument>
-                    </FlowDocumentScrollViewer>
+                    <ScrollViewer VerticalScrollBarVisibility="Hidden">
+                        <DataGrid Name="AfterSubBytes" CanUserResizeColumns="True" CanUserAddRows="False" IsReadOnly="True" ItemsSource="{Binding}" HeadersVisibility="None">
+                            <DataGrid.CellStyle>
+                                <Style TargetType="DataGridCell">
+                                    <Style.Setters>
+                                        <Setter Property="TextBlock.TextAlignment" Value="Center" />
+                                        <Setter Property="BorderBrush" Value="Black" />
+                                    </Style.Setters>
+                                </Style>
+                            </DataGrid.CellStyle>
+                            <DataGrid.ColumnWidth>*</DataGrid.ColumnWidth>
+                        </DataGrid>
+                    </ScrollViewer>
 
 
                 </Grid>
@@ -388,30 +254,23 @@
 
                 <Grid Grid.Row ="1" Grid.Column="0" Background="White" Margin="10">
 
-                    <!--<DataGrid Name="dgUsers" AutoGenerateColumns="False">
-                        <DataGrid.Columns>
-                            <DataGridTextColumn Header="Name" Binding="{Binding Name}" />
-                            <DataGridTextColumn Header="Birthday" Binding="{Binding Birthday}" />
-                        </DataGrid.Columns>
-                        <DataGrid.RowDetailsTemplate>
-                            <DataTemplate>
-                                <TextBlock Text="{Binding Details}"/>
-                            </DataTemplate>
-                        </DataGrid.RowDetailsTemplate>
-                    </DataGrid>-->
 
-                    <DataGrid Name="MixColDataGrid" CanUserResizeColumns="True" CanUserAddRows="False" CanUserSortColumns="True" IsReadOnly="True" ItemsSource="{Binding}" IsManipulationEnabled="True"/>
 
-                    <!--<DataGrid Name="MixColDataGrid" AutoGenerateColumns="True" >
-                        <DataGrid.Columns>
-                            <DataGridTemplateColumn Width="SizeToCells" IsReadOnly="True">
-                                <DataGridTemplateColumn.CellTemplate>
-                                    <DataTemplate>
-                                    </DataTemplate>
-                                </DataGridTemplateColumn.CellTemplate>
-                            </DataGridTemplateColumn>
-                        </DataGrid.Columns>
-                    </DataGrid>-->
+                    <ScrollViewer VerticalScrollBarVisibility="Hidden">
+                        <DataGrid Name="MixColDataGrid" CanUserResizeColumns="True" CanUserAddRows="False" IsReadOnly="True" ItemsSource="{Binding}" HeadersVisibility="None">
+                            <DataGrid.CellStyle>
+                                <Style TargetType="DataGridCell">
+                                    <Style.Setters>
+                                        <Setter Property="TextBlock.TextAlignment" Value="Center" />
+                                        <Setter Property="BorderBrush" Value="Black" />
+                                    </Style.Setters>
+                                </Style>
+                            </DataGrid.CellStyle>
+                            <DataGrid.ColumnWidth>*</DataGrid.ColumnWidth>
+                        </DataGrid>
+                    </ScrollViewer>
+
+
 
                 </Grid>
 
