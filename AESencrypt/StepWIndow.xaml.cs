@@ -27,11 +27,39 @@ namespace AESencrypt
         {
             InitializeComponent();
 
+
             BeforeSubBytes.ItemsSource = App.GetBeforeSubBytes(index);
             AfterSubBytes.ItemsSource = App.GetAfterSubBytes(index);
 
-            //BeforeShiftRows.ItemsSource = App.GetAfterSubBytes(index);
-            //AfterShiftRows.ItemsSource = App.GetAfterSubBytes(index);
+            MatrixModel[] beforeShiftRows = App.GetBeforeShiftRows(index);
+
+            Cell00.DataContext = beforeShiftRows[0];
+            Cell01.DataContext = beforeShiftRows[0];
+            Cell02.DataContext = beforeShiftRows[0];
+            Cell03.DataContext = beforeShiftRows[0];
+
+            Cell10.DataContext = beforeShiftRows[1];
+            Cell11.DataContext = beforeShiftRows[1];
+            Cell12.DataContext = beforeShiftRows[1];
+            Cell13.DataContext = beforeShiftRows[1];
+            Cell14.DataContext = beforeShiftRows[1];
+
+            Cell20.DataContext = beforeShiftRows[2];
+            Cell21.DataContext = beforeShiftRows[2];
+            Cell22.DataContext = beforeShiftRows[2];
+            Cell23.DataContext = beforeShiftRows[2];
+            Cell24.DataContext = beforeShiftRows[2];
+            Cell25.DataContext = beforeShiftRows[2];
+
+            Cell30.DataContext = beforeShiftRows[3];
+            Cell31.DataContext = beforeShiftRows[3];
+            Cell32.DataContext = beforeShiftRows[3];
+            Cell33.DataContext = beforeShiftRows[3];
+            Cell34.DataContext = beforeShiftRows[3];
+            Cell35.DataContext = beforeShiftRows[3];
+            Cell36.DataContext = beforeShiftRows[3];
+
+            MatrixModel[] afterShiftRows = App.GetAfterShiftRows(index);
 
             BeforeMixColumns.ItemsSource = App.GetBeforeMixColumns(index);
             AfterMixColumns.ItemsSource = App.GetAfterMixColumns(index);

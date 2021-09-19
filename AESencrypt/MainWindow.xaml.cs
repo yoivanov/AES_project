@@ -84,32 +84,36 @@ namespace AESencrypt
 
             Button keyScheduleButton = new Button
             {
-                Content = "key schedule"
+                Content = "key schedule",
+                Margin = new Thickness(5)
             };
             keyScheduleButton.Click += KeyScheduleButton_Click;
             preStepsList.Children.Add(keyScheduleButton);
 
             Button sBoxButton = new Button
             {
-                Content = "sBox"
+                Content = "sBox",
+                Margin = new Thickness(5)
             };
-            sBoxButton.Click += sBoxButton_Click;
+            sBoxButton.Click += SBoxButton_Click;
             preStepsList.Children.Add(sBoxButton);
 
             Button roundConstantButton = new Button
             {
-                Content = "round constants"
+                Content = "round constants",
+                Margin = new Thickness(5)
             };
-            roundConstantButton.Click += roundConstantButton_Click;
+            roundConstantButton.Click += RoundConstantButton_Click;
             preStepsList.Children.Add(roundConstantButton);
 
             for (int i = 0; i < App.NumberOfRounds; i++)
             {
                 Button roundsButton = new Button
                 {
-                    Content = $"Step {i + 1}"
+                    Content = $"Step {i + 1}",
+                    Margin = new Thickness(3)
                 };
-                roundsButton.Click += roundsButton_Click;
+                roundsButton.Click += RoundsButton_Click;
                 aesStepsList.Children.Add(roundsButton);
             }
 
@@ -120,20 +124,20 @@ namespace AESencrypt
             MessageBox.Show(App.ShowKeySchedule());
         }
 
-        private void sBoxButton_Click(object sender, RoutedEventArgs e)
+        private void SBoxButton_Click(object sender, RoutedEventArgs e)
         {
             MessageBox.Show(App.ShowSbox());
         }
 
-        private void roundConstantButton_Click(object sender, RoutedEventArgs e)
+        private void RoundConstantButton_Click(object sender, RoutedEventArgs e)
         {
             MessageBox.Show(App.ShowRcon());
         }
 
-        private void roundsButton_Click(object sender, RoutedEventArgs e)
+        private void RoundsButton_Click(object sender, RoutedEventArgs e)
         {
-            var button = sender as Button;
-            var roundIndex = int.Parse(button.Content.ToString().Split(' ')[1]);
+            Button button = sender as Button;
+            int roundIndex = int.Parse(button.Content.ToString().Split(' ')[1]);
 
             StepWIndow stepWindow = new StepWIndow(roundIndex - 1);
             stepWindow.Show();
@@ -176,21 +180,24 @@ namespace AESencrypt
 
             Button DkeyScheduleButton = new Button
             {
-                Content = "key schedule"
+                Content = "key schedule",
+                Margin = new Thickness(5)
             };
             DkeyScheduleButton.Click += DKeyScheduleButton_Click;
             preStepsList.Children.Add(DkeyScheduleButton);
 
             Button DsBoxButton = new Button
             {
-                Content = "sBox"
+                Content = "sBox",
+                Margin = new Thickness(5)
             };
             DsBoxButton.Click += DsBoxButton_Click;
             preStepsList.Children.Add(DsBoxButton);
 
             Button DroundConstantButton = new Button
             {
-                Content = "round constants"
+                Content = "round constants",
+                Margin = new Thickness(5)
             };
             DroundConstantButton.Click += DroundConstantButton_Click;
             preStepsList.Children.Add(DroundConstantButton);
@@ -199,7 +206,8 @@ namespace AESencrypt
             {
                 Button roundsButton = new Button
                 {
-                    Content = $"Step {i + 1}"
+                    Content = $"Step {i + 1}",
+                    Margin = new Thickness(3)
                 };
                 roundsButton.Click += DroundsButton_Click;
                 aesStepsList.Children.Add(roundsButton);
