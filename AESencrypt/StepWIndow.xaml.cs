@@ -27,7 +27,6 @@ namespace AESencrypt
         {
             InitializeComponent();
 
-
             BeforeSubBytes.ItemsSource = App.GetBeforeSubBytes(index);
             AfterSubBytes.ItemsSource = App.GetAfterSubBytes(index);
 
@@ -69,20 +68,11 @@ namespace AESencrypt
 
         }
 
-        private void sBoxButton_Click(object sender, RoutedEventArgs e)
+        private void SBoxButton_Click(object sender, RoutedEventArgs e)
         {
             MessageBox.Show(App.ShowSbox());
         }
 
-        private void ShowSbox()
-        {
 
-            Button sBoxButton = new Button
-            {
-                Content = "sBox"
-            };
-            sBoxButton.Click += sBoxButton_Click;
-
-        }
     }
 }
