@@ -69,10 +69,9 @@ namespace AESencrypt
             return encryptor.ShowRcon();
         }
 
-        //public static MatrixModel[] ShowStep(int index)
-        //{
-        //    return encryptor.getMockData(index);
-        //}
+        /// 
+        /// Passing data for steps
+        /// 
 
         public static MatrixModel[] GetBeforeSubBytes(int index)
         {
@@ -83,6 +82,46 @@ namespace AESencrypt
         {
             return encryptor.GetAfterSubBytes(index);
         }
+
+
+
+        public static MatrixModel[] GetBeforeShiftRows(int index)
+        {
+            return encryptor.GetBeforeShiftRows(index);
+        }
+
+        public static MatrixModel[] GetAfterShiftRows(int index)
+        {
+            return encryptor.GetAfterShiftRows(index);
+        }
+
+
+
+        public static MatrixModel[] GetBeforeMixColumns(int index)
+        {
+            return encryptor.GetBeforeMixColumns(index);
+        }
+
+        public static MatrixModel[] GetAfterMixColumns(int index)
+        {
+            return encryptor.GetAfterMixColumns(index);
+        }
+
+
+
+        public static MatrixModel[] GetBeforeRoundKey(int index)
+        {
+            return encryptor.GetBeforeRoundKey(index);
+        }
+
+        public static MatrixModel[] GetAfterRoundKey(int index)
+        {
+            return encryptor.GetAfterRoundKey(index);
+        }
+
+        /// 
+        /// 
+        /// 
 
         public static string ShowRounds()
         {

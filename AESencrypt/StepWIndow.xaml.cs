@@ -30,6 +30,15 @@ namespace AESencrypt
             BeforeSubBytes.ItemsSource = App.GetBeforeSubBytes(index);
             AfterSubBytes.ItemsSource = App.GetAfterSubBytes(index);
 
+            //BeforeShiftRows.ItemsSource = App.GetAfterSubBytes(index);
+            //AfterShiftRows.ItemsSource = App.GetAfterSubBytes(index);
+
+            BeforeMixColumns.ItemsSource = App.GetBeforeMixColumns(index);
+            AfterMixColumns.ItemsSource = App.GetAfterMixColumns(index);
+
+            BeforeRoundKey.ItemsSource = App.GetBeforeRoundKey(index);
+            AfterRoundKey.ItemsSource = App.GetAfterRoundKey(index);
+
         }
 
         private void sBoxButton_Click(object sender, RoutedEventArgs e)

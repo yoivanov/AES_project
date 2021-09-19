@@ -42,9 +42,14 @@ namespace AesLib
         List<MatrixModel[]> beforeSubBytes;
         List<MatrixModel[]> afterSubBytes;
 
+        List<MatrixModel[]> beforeShiftRows;
+        List<MatrixModel[]> afterShiftRows;
 
+        List<MatrixModel[]> beforeMixColumns;
+        List<MatrixModel[]> afterMixColumns;
 
-
+        List<MatrixModel[]> beforeRoundKey;
+        List<MatrixModel[]> afterRoundKey;
 
 
 
@@ -114,108 +119,108 @@ namespace AesLib
             };
         }  // BuildRcon()
 
-        private void makeMockData()
-        {
-            //this.mockData = new ObservableCollection<byte>
-            //{0x54, 0x4f, 0x4e, 0x20};
+        //private void makeMockData()
+        //{
+        //this.mockData = new ObservableCollection<byte>
+        //{0x54, 0x4f, 0x4e, 0x20};
 
-            mockData = new MatrixModel[4];
+        //mockData = new MatrixModel[4];
 
-            //DataColumn column;
-            //DataRow row;
+        //DataColumn column;
+        //DataRow row;
 
-            //column = new DataColumn();
-            //column.DataType = Type.GetType("System.Byte");
-            //column.ColumnName = "id";
-            //mockData.Columns.Add(column);
+        //column = new DataColumn();
+        //column.DataType = Type.GetType("System.Byte");
+        //column.ColumnName = "id";
+        //mockData.Columns.Add(column);
 
-            ////row = mockData.NewRow();
-            ////row["id"] = 0x54;
-
-
-            ////new object[] { 0x54, 0x4f, 0x4e, 0x20 };
-            ////mockData.Rows.Add(row);
-
-            //column = new DataColumn();
-            //column.DataType = Type.GetType("System.Byte");
-            //mockData.Columns.Add(column);
-
-            //column = new DataColumn();
-            //column.DataType = Type.GetType("System.Byte");
-            //mockData.Columns.Add(column);
-
-            //column = new DataColumn();
-            //column.DataType = Type.GetType("System.Byte");
-            //mockData.Columns.Add(column);
-
-            //mockData.Rows.Add(new object[] { 0x54, 0x4f, 0x4e, 0x20 });
-            //mockData.Rows.Add(new object[] { 0x20, 0x20, 0x65, 0x6f });
-            //mockData.Rows.Add(new object[] { 0x6f, 0x65, 0x6e, 0x77 });
-            //mockData.Rows.Add(new object[] { 0x77, 0x6e, 0x69, 0x54 });
+        ////row = mockData.NewRow();
+        ////row["id"] = 0x54;
 
 
-            //{
-            //{ 0x54, 0x4f, 0x4e, 0x20},
-            //    { 0x20, 0x20, 0x65, 0x6f},
-            //    { 0x6f, 0x65, 0x6e, 0x77},
-            //    { 0x77, 0x6e, 0x69, 0x54},
+        ////new object[] { 0x54, 0x4f, 0x4e, 0x20 };
+        ////mockData.Rows.Add(row);
 
-            //    {0x00, 0x3c, 0x6e, 0x47},
-            //    {0x1f, 0x4e, 0x22, 0x74},
-            //    {0x0e, 0x08, 0x1b, 0x31},
-            //    {0x54, 0x59, 0x0b, 0x1a},
+        //column = new DataColumn();
+        //column.DataType = Type.GetType("System.Byte");
+        //mockData.Columns.Add(column);
 
-            //    {0x58, 0x15, 0x59, 0xcd},
-            //    {0x47, 0xb6, 0xd4, 0x39},
-            //    {0x08, 0x1c, 0xe2, 0xdf},
-            //    {0x8b, 0xba, 0xe8, 0xce},
+        //column = new DataColumn();
+        //column.DataType = Type.GetType("System.Byte");
+        //mockData.Columns.Add(column);
 
-            //    {0x43, 0x0e, 0x09, 0x3d},
-            //    {0xc6, 0x57, 0x08, 0xf8},
-            //    {0xa9, 0xc0, 0xeb, 0x7f},
-            //    {0x62, 0xc8, 0xfe ,0x37},
+        //column = new DataColumn();
+        //column.DataType = Type.GetType("System.Byte");
+        //mockData.Columns.Add(column);
 
-            //    {0x78, 0x70, 0x99, 0x4b},
-            //    {0x76, 0x76, 0x3c, 0x39},
-            //    {0x30, 0x7d, 0x37, 0x34},
-            //    {0x54, 0x23, 0x5b, 0xf1},
+        //mockData.Rows.Add(new object[] { 0x54, 0x4f, 0x4e, 0x20 });
+        //mockData.Rows.Add(new object[] { 0x20, 0x20, 0x65, 0x6f });
+        //mockData.Rows.Add(new object[] { 0x6f, 0x65, 0x6e, 0x77 });
+        //mockData.Rows.Add(new object[] { 0x77, 0x6e, 0x69, 0x54 });
 
-            //    {0xb1, 0x08, 0x04, 0xe7},
-            //    {0xca, 0xfc, 0xb1, 0xb2},
-            //    {0x51, 0x54, 0xc9, 0x6c},
-            //    {0xed, 0xe1, 0xd3, 0x20},
 
-            //    {0x9b, 0x23, 0x5d, 0x2f},
-            //    {0x51, 0x5f, 0x1c, 0x38},
-            //    {0x20, 0x22, 0xbd, 0x91},
-            //    {0x68, 0xf0, 0x32, 0x56},
+        //{
+        //{ 0x54, 0x4f, 0x4e, 0x20},
+        //    { 0x20, 0x20, 0x65, 0x6f},
+        //    { 0x6f, 0x65, 0x6e, 0x77},
+        //    { 0x77, 0x6e, 0x69, 0x54},
 
-            //    {0x14, 0x8f, 0xc0, 0x5e},
-            //    {0x93, 0xa4, 0x60, 0x0f},
-            //    {0x25, 0x2b, 0x24, 0x92},
-            //    {0x77, 0xe8, 0x40, 0x75},
+        //    {0x00, 0x3c, 0x6e, 0x47},
+        //    {0x1f, 0x4e, 0x22, 0x74},
+        //    {0x0e, 0x08, 0x1b, 0x31},
+        //    {0x54, 0x59, 0x0b, 0x1a},
 
-            //    {0x53, 0x43, 0x4f, 0x85},
-            //    {0x39, 0x06, 0x0a, 0x52},
-            //    {0x8e, 0x93, 0x3b, 0x57},
-            //    {0x5d, 0xf8, 0x95, 0xbd},
+        //    {0x58, 0x15, 0x59, 0xcd},
+        //    {0x47, 0xb6, 0xd4, 0x39},
+        //    {0x08, 0x1c, 0xe2, 0xdf},
+        //    {0x8b, 0xba, 0xe8, 0xce},
 
-            //    {0x66, 0x70, 0xaf, 0xa3},
-            //    {0x25, 0xce, 0xd3, 0x73},
-            //    {0x3c, 0x5a, 0x0f, 0x13},
-            //    {0x74, 0xa8, 0x0a, 0x54},
+        //    {0x43, 0x0e, 0x09, 0x3d},
+        //    {0xc6, 0x57, 0x08, 0xf8},
+        //    {0xa9, 0xc0, 0xeb, 0x7f},
+        //    {0x62, 0xc8, 0xfe ,0x37},
 
-            //    {0x09, 0xa2, 0xf0, 0x7b},
-            //    {0x66, 0xd1, 0xfc, 0x3b},
-            //    {0x8b, 0x9a, 0xe6, 0x30},
-            //    {0x78, 0x65, 0xc4, 0x89},
+        //    {0x78, 0x70, 0x99, 0x4b},
+        //    {0x76, 0x76, 0x3c, 0x39},
+        //    {0x30, 0x7d, 0x37, 0x34},
+        //    {0x54, 0x23, 0x5b, 0xf1},
 
-            //    {0x29, 0x57, 0x40, 0x1a},
-            //    {0xc3, 0x14, 0x22, 0x02},
-            //    {0x50, 0x20, 0x99, 0xd7},
-            //    {0x5f, 0xf6, 0xb3, 0x3a}
-            //};
-        }
+        //    {0xb1, 0x08, 0x04, 0xe7},
+        //    {0xca, 0xfc, 0xb1, 0xb2},
+        //    {0x51, 0x54, 0xc9, 0x6c},
+        //    {0xed, 0xe1, 0xd3, 0x20},
+
+        //    {0x9b, 0x23, 0x5d, 0x2f},
+        //    {0x51, 0x5f, 0x1c, 0x38},
+        //    {0x20, 0x22, 0xbd, 0x91},
+        //    {0x68, 0xf0, 0x32, 0x56},
+
+        //    {0x14, 0x8f, 0xc0, 0x5e},
+        //    {0x93, 0xa4, 0x60, 0x0f},
+        //    {0x25, 0x2b, 0x24, 0x92},
+        //    {0x77, 0xe8, 0x40, 0x75},
+
+        //    {0x53, 0x43, 0x4f, 0x85},
+        //    {0x39, 0x06, 0x0a, 0x52},
+        //    {0x8e, 0x93, 0x3b, 0x57},
+        //    {0x5d, 0xf8, 0x95, 0xbd},
+
+        //    {0x66, 0x70, 0xaf, 0xa3},
+        //    {0x25, 0xce, 0xd3, 0x73},
+        //    {0x3c, 0x5a, 0x0f, 0x13},
+        //    {0x74, 0xa8, 0x0a, 0x54},
+
+        //    {0x09, 0xa2, 0xf0, 0x7b},
+        //    {0x66, 0xd1, 0xfc, 0x3b},
+        //    {0x8b, 0x9a, 0xe6, 0x30},
+        //    {0x78, 0x65, 0xc4, 0x89},
+
+        //    {0x29, 0x57, 0x40, 0x1a},
+        //    {0xc3, 0x14, 0x22, 0x02},
+        //    {0x50, 0x20, 0x99, 0xd7},
+        //    {0x5f, 0xf6, 0xb3, 0x3a}
+        //};
+        //}
 
         //public MatrixModel[] getMockData(int index)
         //{
@@ -235,6 +240,12 @@ namespace AesLib
 
         //}
 
+
+        // ======================
+        // GETTING VISUAL DATA METHODS
+        // ======================
+
+
         public MatrixModel[] GetBeforeSubBytes(int index)
         {
             return this.beforeSubBytes.ElementAt(index);
@@ -243,6 +254,36 @@ namespace AesLib
         public MatrixModel[] GetAfterSubBytes(int index)
         {
             return this.afterSubBytes.ElementAt(index);
+        }
+
+        public MatrixModel[] GetBeforeShiftRows(int index)
+        {
+            return this.beforeShiftRows.ElementAt(index);
+        }
+
+        public MatrixModel[] GetAfterShiftRows(int index)
+        {
+            return this.afterShiftRows.ElementAt(index);
+        }
+
+        public MatrixModel[] GetBeforeMixColumns(int index)
+        {
+            return this.beforeMixColumns.ElementAt(index);
+        }
+
+        public MatrixModel[] GetAfterMixColumns(int index)
+        {
+            return this.afterMixColumns.ElementAt(index);
+        }
+
+        public MatrixModel[] GetBeforeRoundKey(int index)
+        {
+            return this.beforeRoundKey.ElementAt(index);
+        }
+
+        public MatrixModel[] GetAfterRoundKey(int index)
+        {
+            return this.afterRoundKey.ElementAt(index);
         }
 
 
@@ -298,7 +339,7 @@ namespace AesLib
 
             BuildRcon();  // calculate round constants
             KeyExpansion();  // expand the given key into a key schedule
-            makeMockData();
+            //makeMockData();
 
         }  // AES constructor
 
@@ -645,8 +686,19 @@ namespace AesLib
         public byte[] Encrypt(byte[] input)
         {
             counter++; // counter will show how many times the encryption has been called, for now will show only 1st encryption cycle
+
             beforeSubBytes = new List<MatrixModel[]>();
             afterSubBytes = new List<MatrixModel[]>();
+
+            beforeShiftRows = new List<MatrixModel[]>();
+            afterShiftRows = new List<MatrixModel[]>();
+
+            beforeMixColumns = new List<MatrixModel[]>();
+            afterMixColumns = new List<MatrixModel[]>();
+
+            beforeRoundKey = new List<MatrixModel[]>();
+            afterRoundKey = new List<MatrixModel[]>();
+
 
 
 
@@ -700,13 +752,19 @@ namespace AesLib
                 CopyMatrix(this.State, afterSubBytes);
 
                 // STEP 3 === Shift rows ===
+                CopyMatrix(this.State, beforeShiftRows);
                 ShiftRows();
+                CopyMatrix(this.State, afterShiftRows);
 
                 // STEP 4 === Mix columns ===
+                CopyMatrix(this.State, beforeMixColumns);
                 MixColumns(); // this can be made in an if statement but the number of checks is not worth it
+                CopyMatrix(this.State, afterMixColumns);
 
                 // STEP 5 === Add round key ===
+                CopyMatrix(this.State, beforeRoundKey);
                 AddRoundKey(round);
+                CopyMatrix(this.State, afterRoundKey);
 
                 if (counter == 1)
                 {
