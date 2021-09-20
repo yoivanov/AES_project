@@ -510,7 +510,7 @@ namespace AesLib
 
         public string ShowSbox()
         {
-            return DumpTwoByTwo(this.Sbox);
+            return DumpSbox(this.Sbox);
         }
 
         public string ShowRcon()
@@ -552,6 +552,32 @@ namespace AesLib
                 }
                 s += "\n";
             }
+            return s;
+        }
+
+        public string DumpSbox(byte[,] a)
+        {
+            string s = "      [0]  [1]  [2]  [3]  [4]  [5]  [6]  [7]  [8]  [9]  [a] [b] [c] [d] [e] [f]\n";
+            for (int r = 0; r < 10; ++r)
+            {
+                s += "[ " + r + "]" + " ";
+                for (int c = 0; c < 15; ++c)
+                {
+                    s += a[r, c].ToString("x2") + "  ";
+                }
+                s += "\n";
+            }
+
+            for (char r = 'a'; r < 'g'; ++r)
+            {
+                s += "[ " + r + "]" + " ";
+                for (int c = 0; c < 15; ++c)
+                {
+                    s += a[r - 87, c].ToString("x2") + "  ";
+                }
+                s += "\n";
+            }
+
             return s;
         }
 
@@ -751,6 +777,19 @@ namespace AesLib
         {
             counter++; // counter will show how many times the encryption has been called, for now will show only 1st encryption cycle
 
+            beforeSubBytes = new List<MatrixModel[]>();
+            afterSubBytes = new List<MatrixModel[]>();
+
+            beforeShiftRows = new List<MatrixModel[]>();
+            afterShiftRows = new List<MatrixModel[]>();
+
+            beforeMixColumns = new List<MatrixModel[]>();
+            afterMixColumns = new List<MatrixModel[]>();
+
+            beforeRoundKey = new List<MatrixModel[]>();
+            afterRoundKey = new List<MatrixModel[]>();
+            roundKeys = new List<MatrixModel[]>();
+
             this.State = new byte[4, 4];  // block size is always [4,4] for AES
             byte[] output = new byte[16];
 
@@ -781,16 +820,25 @@ namespace AesLib
                 // Done in order:
 
                 // STEP 2 === Inverse Shift Rows ===
+                CopyMatrix(this.State, beforeSubBytes);
                 InvShiftRows();
+                CopyMatrix(this.State, afterSubBytes);
 
                 // STEP 3 === Inverse Byte substitution ===
+                CopyMatrix(this.State, beforeShiftRows);
                 SubBytes(this.iSbox);
+                CopyMatrix(this.State, afterShiftRows);
 
                 // STEP 4 === Add round key (same in decryption) ===
+                CopyMatrix(this.State, beforeMixColumns);
                 AddRoundKey(round);
+                CopyMatrix(this.State, afterMixColumns);
 
                 // STEP 5 === Inverse Mix columns ===
+                CopyMatrix(this.State, beforeRoundKey);
+                CopyRoundKeys(round);
                 InvMixColumns();
+                CopyMatrix(this.State, afterRoundKey);
 
                 if (counter == 1)
                 {

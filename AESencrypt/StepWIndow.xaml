@@ -44,6 +44,7 @@
                 <Button x:Name="sBoxBtn" Content="sBox" HorizontalAlignment="Center" VerticalAlignment="Center" Click="SBoxButton_Click"/>
             </WrapPanel>
 
+
             <!-- possible help button for description -->
 
             <Grid Grid.Row ="1" Margin="10">
@@ -51,6 +52,13 @@
                     <ColumnDefinition Width="Auto"/>
                     <ColumnDefinition Width="Auto"/>
                 </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+
+                <TextBlock Grid.Row="0" Grid.Column="0" Margin="10, 0, 10, 0" HorizontalAlignment="Center" Text="Initial State" FontSize="15"/>
+                <TextBlock Grid.Row="0" Grid.Column="1" Margin="10, 0, 10, 0" HorizontalAlignment="Center" Text="State after sBox" FontSize="15"/>
 
                 <Grid Grid.Row ="1" Grid.Column="0" Background="White" Margin="10" Height="auto">
 
@@ -109,12 +117,18 @@
             </Grid.RowDefinitions>
             
             <TextBlock Grid.Row="0" Margin="10, 0, 10, 0" Text="Part 2 - Shift Rows" FontSize="20"/>
-            
+
             <Grid Grid.Row ="1" Margin="10" Width="Auto">
-                
+
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto"/>
                 </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="25"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+
+                <TextBlock Grid.Row="0" Grid.Column="0" Margin="10, 0, 10, 0" Text="Shifting Rows 2, 3, 4 to the left" FontSize="15"/>
 
                 <Grid Grid.Row ="1" Grid.Column="0" Background="White">
 
@@ -295,7 +309,15 @@
                     <ColumnDefinition Width="Auto"/>
                     <ColumnDefinition Width="Auto"/>
                 </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="25"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
 
+                <TextBlock Grid.Row="0" Grid.Column="0" Margin="10, 0, 10, 0" HorizontalAlignment="Center" Text="Initial State" FontSize="15"/>
+                <TextBlock Grid.Row="0" Grid.Column="1" Margin="10, 0, 10, 0" HorizontalAlignment="Center" Text="State Matrix" FontSize="15"/>
+                
+                
                 <Grid Grid.Row ="1" Grid.Column="0" Background="White" Margin="10" Height="auto">
 
                     <ScrollViewer VerticalScrollBarVisibility="Hidden" FontSize="20">
@@ -364,6 +386,15 @@
                     <ColumnDefinition Width="Auto"/>
                     <ColumnDefinition Width="Auto"/>
                 </Grid.ColumnDefinitions>
+
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="25"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+
+                <TextBlock Grid.Row="0" Grid.Column="0" Margin="10, 0, 10, 0" HorizontalAlignment="Center" Text="State Matrix" FontSize="15"/>
+                <TextBlock Grid.Row="0" Grid.Column="1" Margin="10, 0, 10, 0" HorizontalAlignment="Center" Text="Round Key" FontSize="15"/>
+                <TextBlock Grid.Row="0" Grid.Column="2" Margin="10, 0, 10, 0" HorizontalAlignment="Center" Text="Final Matrix" FontSize="15"/>
 
                 <Grid Grid.Row ="1" Grid.Column="0" Background="White" Margin="10" Height="auto">
 
