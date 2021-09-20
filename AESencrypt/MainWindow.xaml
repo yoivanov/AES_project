@@ -6,8 +6,10 @@
         xmlns:local="clr-namespace:AESencrypt"
         mc:Ignorable="d"
         Title="AES" 
-        Height="450" 
+        Height="450"
+        MinHeight="420"
         Width="800"
+        MinWidth="650"
         Background="LightGray">
     
 

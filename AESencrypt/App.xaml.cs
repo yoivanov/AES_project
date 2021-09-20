@@ -119,6 +119,11 @@ namespace AESencrypt
             return encryptor.GetAfterRoundKey(index);
         }
 
+        public static MatrixModel[] GetRoundKey(int index)
+        {
+            return encryptor.GetRoundKeys(index);
+        }
+
         /// 
         /// 
         /// 

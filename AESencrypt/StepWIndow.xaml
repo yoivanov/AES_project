@@ -22,11 +22,15 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
+
+        <TextBlock Grid.Column="0" Grid.Row="0" Margin="10, 0, 10, 0" Text="AES Round" FontSize="20" HorizontalAlignment="Right"/>
+        <TextBlock x:Name="RoundNum" Grid.Column="1" Grid.Row="0" Margin="10, 0, 10, 0" Text="{Binding}" FontSize="20" HorizontalAlignment="Left"/>
 
         <!-- Byte Substitution -->
 
-        <Grid Grid.Column="0" Grid.Row="0" Margin="10">
+        <Grid Grid.Column="0" Grid.Row="1" Margin="10">
 
             <Grid.RowDefinitions>
                 <RowDefinition Height="25"/>
@@ -96,7 +100,7 @@
 
         <!-- Shift rows -->
 
-        <Grid Grid.Column="1" Grid.Row="0" Margin="10" Width="Auto">
+        <Grid Grid.Column="1" Grid.Row="1" Margin="10" Width="Auto">
 
             <Grid.RowDefinitions>
                 <RowDefinition Height="25"/>
@@ -278,7 +282,7 @@
 
         <!-- Mix columns -->
 
-        <Grid Grid.Column="0" Grid.Row="1" Margin="10">
+        <Grid Grid.Column="0" Grid.Row="2" Margin="10">
 
             <Grid.RowDefinitions>
                 <RowDefinition Height="25"/>
@@ -340,7 +344,7 @@
 
         <!-- Add round key -->
 
-        <Grid Grid.Column="1" Grid.Row="1" Margin="10" Width="Auto">
+        <Grid Grid.Column="1" Grid.Row="2" Margin="10" Width="Auto">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="Auto"/>
@@ -352,14 +356,11 @@
                 <RowDefinition Height="25"/>
             </Grid.RowDefinitions>
 
-            <TextBlock Grid.Row="0" Margin="10, 0, 10, 0" Text="Part 4 - Add Round Key" Grid.ColumnSpan="2" FontSize="20"/>
+            <TextBlock Grid.Row="0" Margin="10, 0, 10, 0" Text="Part 4 - Add Round Key" Grid.ColumnSpan="3" FontSize="20"/>
 
-            <WrapPanel Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="1" Margin="262,3,516,2">
-                <Button x:Name="roundKeyBtn" Content="Round Key" HorizontalAlignment="Center" VerticalAlignment="Center" Click="SBoxButton_Click"/>
-            </WrapPanel>
-
-            <Grid Grid.Row ="1" Margin="10" Grid.ColumnSpan="2">
+            <Grid Grid.Row ="1" Margin="10">
                 <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
                     <ColumnDefinition Width="Auto"/>
                     <ColumnDefinition Width="Auto"/>
                 </Grid.ColumnDefinitions>
@@ -385,6 +386,26 @@
                 </Grid>
 
                 <Grid Grid.Row ="1" Grid.Column="1" Background="White" Margin="10" Height="auto">
+
+                    <ScrollViewer VerticalScrollBarVisibility="Hidden" FontSize="20">
+                        <DataGrid Name="RoundKey" CanUserResizeColumns="True" CanUserAddRows="False" IsReadOnly="True" ItemsSource="{Binding}" HeadersVisibility="None">
+                            <DataGrid.CellStyle>
+                                <Style TargetType="DataGridCell">
+                                    <Style.Setters>
+                                        <Setter Property="TextBlock.TextAlignment" Value="Center" />
+                                        <Setter Property="BorderBrush" Value="Black" />
+                                        <Setter Property="Margin" Value="3"/>
+                                    </Style.Setters>
+                                </Style>
+                            </DataGrid.CellStyle>
+                            <DataGrid.ColumnWidth>SizeToCells</DataGrid.ColumnWidth>
+                        </DataGrid>
+                    </ScrollViewer>
+
+
+                </Grid>
+
+                <Grid Grid.Row ="1" Grid.Column="2" Background="White" Margin="10" Height="auto">
 
                     <ScrollViewer VerticalScrollBarVisibility="Hidden" FontSize="20">
                         <DataGrid Name="AfterRoundKey" CanUserResizeColumns="True" CanUserAddRows="False" IsReadOnly="True" ItemsSource="{Binding}" HeadersVisibility="None">

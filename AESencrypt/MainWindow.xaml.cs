@@ -77,7 +77,7 @@ namespace AESencrypt
 
         private void GenerateStepButtonsEncrypt()
         {
-            // In the future the buttons should be dynamically generated
+            // Buttons are now dynamically generated
 
             preStepsList.Children.Clear();
             aesStepsList.Children.Clear();
@@ -106,7 +106,14 @@ namespace AESencrypt
             roundConstantButton.Click += RoundConstantButton_Click;
             preStepsList.Children.Add(roundConstantButton);
 
-            for (int i = 0; i < App.NumberOfRounds; i++)
+            Button initialRoundButton = new Button
+            {
+                Content = $"Step 0",
+                Margin = new Thickness(3)
+            };
+            aesStepsList.Children.Add(initialRoundButton);
+
+            for (int i = 0; i < App.NumberOfRounds - 1; i++)
             {
                 Button roundsButton = new Button
                 {
@@ -117,6 +124,12 @@ namespace AESencrypt
                 aesStepsList.Children.Add(roundsButton);
             }
 
+            Button lastRoundButton = new Button
+            {
+                Content = $"Step {App.NumberOfRounds}",
+                Margin = new Thickness(3)
+            };
+            aesStepsList.Children.Add(lastRoundButton);
         }
 
         private void KeyScheduleButton_Click(object sender, RoutedEventArgs e)
@@ -139,7 +152,7 @@ namespace AESencrypt
             Button button = sender as Button;
             int roundIndex = int.Parse(button.Content.ToString().Split(' ')[1]);
 
-            StepWIndow stepWindow = new StepWIndow(roundIndex - 1);
+            StepWIndow stepWindow = new StepWIndow(roundIndex);
             stepWindow.Show();
         }
 

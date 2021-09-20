@@ -23,14 +23,21 @@ namespace AESencrypt
     public partial class StepWIndow : Window
     {
 
-        public StepWIndow(int index)
+        public StepWIndow(int roundIndex)
         {
             InitializeComponent();
 
-            BeforeSubBytes.ItemsSource = App.GetBeforeSubBytes(index);
-            AfterSubBytes.ItemsSource = App.GetAfterSubBytes(index);
+            /// adjusted index will be used this way because for the very first round
+            /// round 0 some actions are not performed therefore information is not stored
+            /// in coresponding data structures
+            int adjustedIndex = roundIndex - 1;
 
-            MatrixModel[] beforeShiftRows = App.GetBeforeShiftRows(index);
+            RoundNum.Text = roundIndex.ToString();
+
+            BeforeSubBytes.ItemsSource = App.GetBeforeSubBytes(adjustedIndex);
+            AfterSubBytes.ItemsSource = App.GetAfterSubBytes(adjustedIndex);
+
+            MatrixModel[] beforeShiftRows = App.GetBeforeShiftRows(adjustedIndex);
 
             Cell00.DataContext = beforeShiftRows[0];
             Cell01.DataContext = beforeShiftRows[0];
@@ -58,13 +65,14 @@ namespace AESencrypt
             Cell35.DataContext = beforeShiftRows[3];
             Cell36.DataContext = beforeShiftRows[3];
 
-            MatrixModel[] afterShiftRows = App.GetAfterShiftRows(index);
+            MatrixModel[] afterShiftRows = App.GetAfterShiftRows(adjustedIndex);
 
-            BeforeMixColumns.ItemsSource = App.GetBeforeMixColumns(index);
-            AfterMixColumns.ItemsSource = App.GetAfterMixColumns(index);
+            BeforeMixColumns.ItemsSource = App.GetBeforeMixColumns(adjustedIndex);
+            AfterMixColumns.ItemsSource = App.GetAfterMixColumns(adjustedIndex);
 
-            BeforeRoundKey.ItemsSource = App.GetBeforeRoundKey(index);
-            AfterRoundKey.ItemsSource = App.GetAfterRoundKey(index);
+            BeforeRoundKey.ItemsSource = App.GetBeforeRoundKey(adjustedIndex);
+            RoundKey.ItemsSource = App.GetRoundKey(adjustedIndex);
+            AfterRoundKey.ItemsSource = App.GetAfterRoundKey(adjustedIndex);
 
         }
 
