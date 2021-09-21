@@ -111,6 +111,7 @@ namespace AESencrypt
                 Content = $"Step 0",
                 Margin = new Thickness(3)
             };
+            initialRoundButton.Click += InitialRoundButton_Click;
             aesStepsList.Children.Add(initialRoundButton);
 
             for (int i = 0; i < App.NumberOfRounds - 1; i++)
@@ -145,6 +146,12 @@ namespace AESencrypt
         private void RoundConstantButton_Click(object sender, RoutedEventArgs e)
         {
             MessageBox.Show(App.ShowRcon());
+        }
+
+        private void InitialRoundButton_Click(object sender, RoutedEventArgs e)
+        {
+            InitialStateWindow initialStateWindow = new InitialStateWindow();
+            initialStateWindow.Show();
         }
 
         private void RoundsButton_Click(object sender, RoutedEventArgs e)

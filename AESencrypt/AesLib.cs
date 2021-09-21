@@ -35,8 +35,6 @@ namespace AesLib
         private string showRounds;
         private int counter;
 
-        private List<MatrixModel[]> stepsData;
-
         private List<MatrixModel[]> beforeSubBytes;
         private List<MatrixModel[]> afterSubBytes;
 
@@ -48,6 +46,8 @@ namespace AesLib
 
         private List<MatrixModel[]> beforeRoundKey;
         private List<MatrixModel[]> afterRoundKey;
+
+        private List<MatrixModel[]> roundKey0;
         private List<MatrixModel[]> roundKeys;
 
 
@@ -479,7 +479,7 @@ namespace AesLib
         }
 
 
-        public void CopyRoundKeys(int round)
+        public void CopyRoundKeys(int round, List<MatrixModel[]> copyTo)
         {
             MatrixModel[] temp = new MatrixModel[4];
 
@@ -494,7 +494,7 @@ namespace AesLib
                 };
             }
 
-            roundKeys.Add(temp);
+            copyTo.Add(temp);
         }
 
 
@@ -616,6 +616,8 @@ namespace AesLib
 
             beforeRoundKey = new List<MatrixModel[]>();
             afterRoundKey = new List<MatrixModel[]>();
+
+            roundKey0 = new List<MatrixModel[]>();
             roundKeys = new List<MatrixModel[]>();
 
 
@@ -649,6 +651,7 @@ namespace AesLib
             // STEP 1 / Round 0 - the first round key is added
             // === Add round key ===
             // Adding the first round key is called key whitening
+            CopyRoundKeys(0, roundKey0);
             AddRoundKey(0);
 
             if (counter == 1)
@@ -681,7 +684,7 @@ namespace AesLib
 
                 // STEP 5 === Add round key ===
                 CopyMatrix(this.State, beforeRoundKey);
-                CopyRoundKeys(round);
+                CopyRoundKeys(round, roundKeys);
                 AddRoundKey(round);
                 CopyMatrix(this.State, afterRoundKey);
 
@@ -788,6 +791,8 @@ namespace AesLib
 
             beforeRoundKey = new List<MatrixModel[]>();
             afterRoundKey = new List<MatrixModel[]>();
+
+            roundKey0 = new List<MatrixModel[]>();
             roundKeys = new List<MatrixModel[]>();
 
             this.State = new byte[4, 4];  // block size is always [4,4] for AES
@@ -836,7 +841,7 @@ namespace AesLib
 
                 // STEP 5 === Inverse Mix columns ===
                 CopyMatrix(this.State, beforeRoundKey);
-                CopyRoundKeys(round);
+                CopyRoundKeys(round, roundKeys);
                 InvMixColumns();
                 CopyMatrix(this.State, afterRoundKey);
 
