@@ -39,7 +39,7 @@
             HorizontalAlignment="Center" 
             Text="Substitute each entry (byte) of current state matrix by corresponding entry in AES S-Box. Byte 6E is substituted by the S-Box entry in row 6 and column E -> 9F" 
             FontSize="20" 
-            Width="400"
+            Width="700"
             TextWrapping="Wrap"
             Grid.ColumnSpan="2"/>
 
