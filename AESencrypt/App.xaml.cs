@@ -71,7 +71,23 @@ namespace AESencrypt
 
         /// 
         /// Passing data for steps
-        /// 
+        ///
+
+        public static MatrixModel[] GetRound0Clear()
+        {
+            return encryptor.GetBeforeRound0Text();
+        }
+
+        public static MatrixModel[] GetRound0Initial()
+        {
+            return encryptor.GetBeforeRound0();
+        }
+
+        public static MatrixModel[] GetRound0After()
+        {
+            return encryptor.GetAfterRound0();
+        }
+
 
         public static MatrixModel[] GetBeforeSubBytes(int index)
         {
@@ -124,6 +140,12 @@ namespace AESencrypt
         {
             return encryptor.GetRoundKeys(index);
         }
+
+        public static MatrixModel[] GetRoundKey0()
+        {
+            return encryptor.GetRound0Key();
+        }
+
 
         public static List<SboxModel> GetSBox()
         {

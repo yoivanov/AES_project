@@ -20,6 +20,8 @@
                 <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
 
             <Grid.RowDefinitions>
@@ -27,14 +29,25 @@
                 <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
 
+            <TextBlock Grid.Row="0" Grid.Column="0" Margin="10, 0, 10, 0" HorizontalAlignment="Center" Text="Text" FontSize="20" TextWrapping="Wrap"/>
             <TextBlock Grid.Row="0" Grid.Column="1" Margin="10, 0, 10, 0" HorizontalAlignment="Center" Text="Initial Matrix" FontSize="20"/>
-            <TextBlock Grid.Row="0" Grid.Column="2" Margin="10, 0, 10, 0" HorizontalAlignment="Center" Text="Round Key 0" FontSize="20"/>
-            <TextBlock Grid.Row="0" Grid.Column="3" Margin="10, 0, 10, 0" HorizontalAlignment="Center" Text="Final Matrix" FontSize="20"/>
+            <TextBlock Grid.Row="0" Grid.Column="3" Margin="10, 0, 10, 0" HorizontalAlignment="Center" Text="Round Key 0" FontSize="20"/>
+            <TextBlock Grid.Row="0" Grid.Column="5" Margin="10, 0, 10, 0" HorizontalAlignment="Center" Text="Final Matrix" FontSize="20"/>
 
-            <Grid Grid.Row ="1" Grid.Column="1" Background="White" Margin="10" Height="auto">
+            <TextBlock Grid.Row="1" Grid.Column="2" Margin="10, 0, 10, 0" HorizontalAlignment="Center" Text="XOR" FontSize="20" VerticalAlignment="Center"/>
+            <TextBlock Grid.Row="1" Grid.Column="4" Margin="10, 0, 10, 0" HorizontalAlignment="Center" Text="=" FontSize="20" VerticalAlignment="Center"/>
+
+
+            <Grid Grid.Row ="1" Grid.Column="0" Background="White" Margin="10" Height="auto">
 
                 <ScrollViewer VerticalScrollBarVisibility="Hidden" FontSize="20">
-                    <DataGrid Name="Round0Initial" CanUserResizeColumns="True" CanUserAddRows="False" IsReadOnly="True" ItemsSource="{Binding}" HeadersVisibility="None">
+                    <DataGrid Name="Round0Clear" 
+                              CanUserResizeColumns="True" 
+                              CanUserAddRows="False" 
+                              IsReadOnly="True" 
+                              ItemsSource="{Binding}" 
+                              HeadersVisibility="None" 
+                              ColumnWidth="SizeToCells">
                         <DataGrid.CellStyle>
                             <Style TargetType="DataGridCell">
                                 <Style.Setters>
@@ -44,17 +57,22 @@
                                 </Style.Setters>
                             </Style>
                         </DataGrid.CellStyle>
-                        <DataGrid.ColumnWidth>SizeToCells</DataGrid.ColumnWidth>
                     </DataGrid>
                 </ScrollViewer>
 
 
             </Grid>
 
-            <Grid Grid.Row ="1" Grid.Column="2" Background="White" Margin="10" Height="auto">
+            <Grid Grid.Row ="1" Grid.Column="1" Background="White" Margin="10" Height="auto">
 
                 <ScrollViewer VerticalScrollBarVisibility="Hidden" FontSize="20">
-                    <DataGrid Name="Round0RoundKey" CanUserResizeColumns="True" CanUserAddRows="False" IsReadOnly="True" ItemsSource="{Binding}" HeadersVisibility="None">
+                    <DataGrid Name="Round0Initial" 
+                              CanUserResizeColumns="True" 
+                              CanUserAddRows="False" 
+                              IsReadOnly="True" 
+                              ItemsSource="{Binding}" 
+                              HeadersVisibility="None" 
+                              ColumnWidth="SizeToCells">
                         <DataGrid.CellStyle>
                             <Style TargetType="DataGridCell">
                                 <Style.Setters>
@@ -64,7 +82,6 @@
                                 </Style.Setters>
                             </Style>
                         </DataGrid.CellStyle>
-                        <DataGrid.ColumnWidth>SizeToCells</DataGrid.ColumnWidth>
                     </DataGrid>
                 </ScrollViewer>
 
@@ -74,7 +91,37 @@
             <Grid Grid.Row ="1" Grid.Column="3" Background="White" Margin="10" Height="auto">
 
                 <ScrollViewer VerticalScrollBarVisibility="Hidden" FontSize="20">
-                    <DataGrid Name="Round0AfterState" CanUserResizeColumns="True" CanUserAddRows="False" IsReadOnly="True" ItemsSource="{Binding}" HeadersVisibility="None">
+                    <DataGrid Name="Round0RoundKey" 
+                              CanUserResizeColumns="True" 
+                              CanUserAddRows="False" 
+                              IsReadOnly="True" 
+                              ItemsSource="{Binding}" 
+                              HeadersVisibility="None" 
+                              ColumnWidth="SizeToCells">
+                        <DataGrid.CellStyle>
+                            <Style TargetType="DataGridCell">
+                                <Style.Setters>
+                                    <Setter Property="TextBlock.TextAlignment" Value="Center" />
+                                    <Setter Property="BorderBrush" Value="Black" />
+                                    <Setter Property="Margin" Value="3"/>
+                                </Style.Setters>
+                            </Style>
+                        </DataGrid.CellStyle>
+                    </DataGrid>
+                </ScrollViewer>
+
+
+            </Grid>
+
+            <Grid Grid.Row ="1" Grid.Column="5" Background="White" Margin="10" Height="auto">
+
+                <ScrollViewer VerticalScrollBarVisibility="Hidden" FontSize="20">
+                    <DataGrid Name="Round0AfterState" 
+                              CanUserResizeColumns="True" 
+                              CanUserAddRows="False" 
+                              IsReadOnly="True" 
+                              ItemsSource="{Binding}" 
+                              HeadersVisibility="None">
                         <DataGrid.CellStyle>
                             <Style TargetType="DataGridCell">
                                 <Style.Setters>

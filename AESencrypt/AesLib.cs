@@ -35,6 +35,10 @@ namespace AesLib
         private string showRounds;
         private int counter;
 
+        private List<MatrixModel[]> beforeRound0Text;
+        private List<MatrixModel[]> beforeRound0;
+        private List<MatrixModel[]> afterRound0;
+
         private List<MatrixModel[]> beforeSubBytes;
         private List<MatrixModel[]> afterSubBytes;
 
@@ -117,11 +121,26 @@ namespace AesLib
             };
         }  // BuildRcon()
 
-        
+
 
         // ======================
         // GETTING VISUAL DATA METHODS
         // ======================
+
+        public MatrixModel[] GetBeforeRound0Text()
+        {
+            return this.beforeRound0Text.ElementAt(0);
+        }
+
+        public MatrixModel[] GetBeforeRound0()
+        {
+            return this.beforeRound0.ElementAt(0);
+        }
+
+        public MatrixModel[] GetAfterRound0()
+        {
+            return this.afterRound0.ElementAt(0);
+        }
 
 
         public MatrixModel[] GetBeforeSubBytes(int index)
@@ -169,6 +188,11 @@ namespace AesLib
             return this.roundKeys.ElementAt(index);
         }
 
+        public MatrixModel[] GetRound0Key()
+        {
+            return this.roundKey0.ElementAt(0);
+        }
+
         public List<SboxModel> GetSbox()
         {
             List<SboxModel> newSbox = new List<SboxModel>();
@@ -177,24 +201,23 @@ namespace AesLib
             {
                 SboxModel temp = new SboxModel
                 {
-                    Col1 = Sbox[r, 0].ToString("x2"),
-                    Col2 = Sbox[r, 1].ToString("x2"),
-                    Col3 = Sbox[r, 2].ToString("x2"),
-                    Col4 = Sbox[r, 3].ToString("x2"),
-                    Col5 = Sbox[r, 4].ToString("x2"),
-                    Col6 = Sbox[r, 5].ToString("x2"),
-                    Col7 = Sbox[r, 6].ToString("x2"),
-                    Col8 = Sbox[r, 7].ToString("x2"),
-                    Col9 = Sbox[r, 8].ToString("x2"),
-                    Col10 = Sbox[r, 9].ToString("x2"),
-                    Col11 = Sbox[r, 10].ToString("x2"),
-                    Col12 = Sbox[r, 11].ToString("x2"),
-                    Col13 = Sbox[r, 12].ToString("x2"),
-                    Col14 = Sbox[r, 13].ToString("x2"),
-                    Col15 = Sbox[r, 14].ToString("x2"),
-                    Col16 = Sbox[r, 15].ToString("x2")
+                    Col1 = Sbox[r, 0].ToString("x2").ToUpper(),
+                    Col2 = Sbox[r, 1].ToString("x2").ToUpper(),
+                    Col3 = Sbox[r, 2].ToString("x2").ToUpper(),
+                    Col4 = Sbox[r, 3].ToString("x2").ToUpper(),
+                    Col5 = Sbox[r, 4].ToString("x2").ToUpper(),
+                    Col6 = Sbox[r, 5].ToString("x2").ToUpper(),
+                    Col7 = Sbox[r, 6].ToString("x2").ToUpper(),
+                    Col8 = Sbox[r, 7].ToString("x2").ToUpper(),
+                    Col9 = Sbox[r, 8].ToString("x2").ToUpper(),
+                    Col10 = Sbox[r, 9].ToString("x2").ToUpper(),
+                    Col11 = Sbox[r, 10].ToString("x2").ToUpper(),
+                    Col12 = Sbox[r, 11].ToString("x2").ToUpper(),
+                    Col13 = Sbox[r, 12].ToString("x2").ToUpper(),
+                    Col14 = Sbox[r, 13].ToString("x2").ToUpper(),
+                    Col15 = Sbox[r, 14].ToString("x2").ToUpper(),
+                    Col16 = Sbox[r, 15].ToString("x2").ToUpper()
                 };
-
                 newSbox.Add(temp);
             }
             return newSbox;
@@ -203,7 +226,6 @@ namespace AesLib
         public List<SboxModel> GetSboxTitles()
         {
             List<SboxModel> temp = new List<SboxModel>();
-
             temp.Add(new SboxModel()
             {
                 Col1 = "0",
@@ -216,14 +238,13 @@ namespace AesLib
                 Col8 = "7",
                 Col9 = "8",
                 Col10 = "9",
-                Col11 = "a",
-                Col12 = "b",
-                Col13 = "c",
-                Col14 = "d",
-                Col15 = "e",
-                Col16 = "f",
+                Col11 = "A",
+                Col12 = "B",
+                Col13 = "C",
+                Col14 = "D",
+                Col15 = "E",
+                Col16 = "F",
             });
-
             return temp;
         }
 
@@ -516,8 +537,6 @@ namespace AesLib
         }
 
 
-
-
         public void CopyMatrix(byte[,] copyFrom, List<MatrixModel[]> copyTo)
         {
             MatrixModel[] temp = new MatrixModel[4];
@@ -526,10 +545,28 @@ namespace AesLib
             {
                 temp[i] = new MatrixModel
                 {
-                    Col1 = copyFrom[i, 0].ToString("x2"),
-                    Col2 = copyFrom[i, 1].ToString("x2"),
-                    Col3 = copyFrom[i, 2].ToString("x2"),
-                    Col4 = copyFrom[i, 3].ToString("x2"),
+                    Col1 = copyFrom[i, 0].ToString("x2").ToUpper(),
+                    Col2 = copyFrom[i, 1].ToString("x2").ToUpper(),
+                    Col3 = copyFrom[i, 2].ToString("x2").ToUpper(),
+                    Col4 = copyFrom[i, 3].ToString("x2").ToUpper()
+                };
+            }
+
+            copyTo.Add(temp);
+        }
+
+        public void RevertMatrixToText(byte[,] copyFrom, List<MatrixModel[]> copyTo)
+        {
+            MatrixModel[] temp = new MatrixModel[4];
+
+            for (int i = 0; i < 4; i++)
+            {
+                temp[i] = new MatrixModel
+                {
+                    Col1 = Convert.ToChar(copyFrom[i, 0]).ToString().ToUpper(),
+                    Col2 = Convert.ToChar(copyFrom[i, 1]).ToString().ToUpper(),
+                    Col3 = Convert.ToChar(copyFrom[i, 2]).ToString().ToUpper(),
+                    Col4 = Convert.ToChar(copyFrom[i, 3]).ToString().ToUpper()
                 };
             }
 
@@ -545,10 +582,10 @@ namespace AesLib
             {
                 temp[i] = new MatrixModel
                 {
-                    Col1 = keySchedule[(round * 4) + i, 0].ToString("x2"),
-                    Col2 = keySchedule[(round * 4) + i, 1].ToString("x2"),
-                    Col3 = keySchedule[(round * 4) + i, 2].ToString("x2"),
-                    Col4 = keySchedule[(round * 4) + i, 3].ToString("x2"),
+                    Col1 = keySchedule[(round * 4) + i, 0].ToString("x2").ToUpper(),
+                    Col2 = keySchedule[(round * 4) + i, 1].ToString("x2").ToUpper(),
+                    Col3 = keySchedule[(round * 4) + i, 2].ToString("x2").ToUpper(),
+                    Col4 = keySchedule[(round * 4) + i, 3].ToString("x2").ToUpper()
                 };
             }
 
@@ -663,6 +700,10 @@ namespace AesLib
         {
             counter++; // counter will show how many times the encryption has been called, for now will show only 1st encryption cycle
 
+            beforeRound0Text = new List<MatrixModel[]>();
+            beforeRound0 = new List<MatrixModel[]>();
+            afterRound0 = new List<MatrixModel[]>();
+
             beforeSubBytes = new List<MatrixModel[]>();
             afterSubBytes = new List<MatrixModel[]>();
 
@@ -689,10 +730,7 @@ namespace AesLib
                 this.State[i % 4, i / 4] = input[i];
             }
 
-            for (int i = 0; i < State.Length; i++)
-            {
 
-            }
 
             if (counter == 1)
             {
@@ -709,8 +747,11 @@ namespace AesLib
             // STEP 1 / Round 0 - the first round key is added
             // === Add round key ===
             // Adding the first round key is called key whitening
+            RevertMatrixToText(this.State, beforeRound0Text);
+            CopyMatrix(this.State, beforeRound0);
             CopyRoundKeys(0, roundKey0);
             AddRoundKey(0);
+            CopyMatrix(this.State, afterRound0);
 
             if (counter == 1)
             {

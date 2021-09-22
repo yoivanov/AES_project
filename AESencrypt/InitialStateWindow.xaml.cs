@@ -22,8 +22,10 @@ namespace AESencrypt
         public InitialStateWindow()
         {
             InitializeComponent();
-
-            Round0RoundKey.ItemsSource = App.GetRoundKey(0);
+            Round0Clear.ItemsSource = App.GetRound0Clear();
+            Round0Initial.ItemsSource = App.GetRound0Initial();
+            Round0RoundKey.ItemsSource = App.GetRoundKey0();
+            Round0AfterState.ItemsSource = App.GetRound0After();
         }
     }
 }
