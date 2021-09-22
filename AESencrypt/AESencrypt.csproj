@@ -73,6 +73,10 @@
       <DependentUpon>InitialStateWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="MatrixModel.cs" />
+    <Compile Include="SboxModel.cs" />
+    <Compile Include="SBoxWindow.xaml.cs">
+      <DependentUpon>SBoxWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="StepWIndow.xaml.cs">
       <DependentUpon>StepWIndow.xaml</DependentUpon>
     </Compile>
@@ -94,6 +98,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="SBoxWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="StepWIndow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

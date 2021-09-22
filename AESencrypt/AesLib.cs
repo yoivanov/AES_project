@@ -169,6 +169,64 @@ namespace AesLib
             return this.roundKeys.ElementAt(index);
         }
 
+        public List<SboxModel> GetSbox()
+        {
+            List<SboxModel> newSbox = new List<SboxModel>();
+
+            for (int r = 0; r < 16; r++)
+            {
+                SboxModel temp = new SboxModel
+                {
+                    Col1 = Sbox[r, 0].ToString("x2"),
+                    Col2 = Sbox[r, 1].ToString("x2"),
+                    Col3 = Sbox[r, 2].ToString("x2"),
+                    Col4 = Sbox[r, 3].ToString("x2"),
+                    Col5 = Sbox[r, 4].ToString("x2"),
+                    Col6 = Sbox[r, 5].ToString("x2"),
+                    Col7 = Sbox[r, 6].ToString("x2"),
+                    Col8 = Sbox[r, 7].ToString("x2"),
+                    Col9 = Sbox[r, 8].ToString("x2"),
+                    Col10 = Sbox[r, 9].ToString("x2"),
+                    Col11 = Sbox[r, 10].ToString("x2"),
+                    Col12 = Sbox[r, 11].ToString("x2"),
+                    Col13 = Sbox[r, 12].ToString("x2"),
+                    Col14 = Sbox[r, 13].ToString("x2"),
+                    Col15 = Sbox[r, 14].ToString("x2"),
+                    Col16 = Sbox[r, 15].ToString("x2")
+                };
+
+                newSbox.Add(temp);
+            }
+            return newSbox;
+        }
+
+        public List<SboxModel> GetSboxTitles()
+        {
+            List<SboxModel> temp = new List<SboxModel>();
+
+            temp.Add(new SboxModel()
+            {
+                Col1 = "0",
+                Col2 = "1",
+                Col3 = "2",
+                Col4 = "3",
+                Col5 = "4",
+                Col6 = "5",
+                Col7 = "6",
+                Col8 = "7",
+                Col9 = "8",
+                Col10 = "9",
+                Col11 = "a",
+                Col12 = "b",
+                Col13 = "c",
+                Col14 = "d",
+                Col15 = "e",
+                Col16 = "f",
+            });
+
+            return temp;
+        }
+
 
         // ======================
         // CONSTRUCTOR METHODS
@@ -427,7 +485,7 @@ namespace AesLib
                 this.keySchedule[row, 3] = (byte)((int)this.keySchedule[row - keySize, 3] ^ (int)temp[3]);
 
             }  // for loop
-        }  // KeyExpansion()
+        }  // KeyExpansion
 
         private byte[] SubWord(byte[] word)
         {

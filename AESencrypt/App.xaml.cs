@@ -125,6 +125,16 @@ namespace AESencrypt
             return encryptor.GetRoundKeys(index);
         }
 
+        public static List<SboxModel> GetSBox()
+        {
+            return encryptor.GetSbox();
+        }
+
+        public static List<SboxModel> GetSBoxTitles()
+        {
+            return encryptor.GetSboxTitles();
+        }
+
         /// 
         /// 
         /// 

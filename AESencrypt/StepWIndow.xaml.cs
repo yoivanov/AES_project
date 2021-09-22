@@ -78,7 +78,8 @@ namespace AESencrypt
 
         private void SBoxButton_Click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show(App.ShowSbox());
+            SBoxWindow SBox = new SBoxWindow();
+            SBox.Show();
         }
 
 
