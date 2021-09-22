@@ -799,11 +799,25 @@ namespace AesLib
             }  // main loop
 
 
-            // STEP 6 / Last Round
+            // STEP 6 - Last Round - no mix columns
+
+            // Byte substitution
+            CopyMatrix(this.State, beforeSubBytes);
             SubBytes(this.Sbox);
+            CopyMatrix(this.State, afterSubBytes);
+
+            // Shift Rows
+            CopyMatrix(this.State, beforeShiftRows);
             ShiftRows();
+            CopyMatrix(this.State, afterShiftRows);
+
             // MIX COLUMNS IS NOT DONE IN THE LAST ITERATION
+
+            // Add Round Key
+            CopyMatrix(this.State, beforeRoundKey);
+            CopyRoundKeys(numRounds, roundKeys);
             AddRoundKey(numRounds);
+            CopyMatrix(this.State, afterRoundKey);
 
             if (counter == 1)
             {

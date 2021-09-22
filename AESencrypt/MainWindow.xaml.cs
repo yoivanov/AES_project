@@ -130,6 +130,7 @@ namespace AESencrypt
                 Content = $"Step {App.NumberOfRounds}",
                 Margin = new Thickness(3)
             };
+            lastRoundButton.Click += LastRoundButton_Click;
             aesStepsList.Children.Add(lastRoundButton);
         }
 
@@ -163,7 +164,14 @@ namespace AESencrypt
             stepWindow.Show();
         }
 
+        private void LastRoundButton_Click(object sender, RoutedEventArgs e)
+        {
+            Button button = sender as Button;
+            int roundIndex = int.Parse(button.Content.ToString().Split(' ')[1]);
 
+            StepWindowLast stepWildowLastStep = new StepWindowLast(roundIndex);
+            stepWildowLastStep.Show();
+        }
 
         private void DecryptBtn_Click(object sender, RoutedEventArgs e)
         {

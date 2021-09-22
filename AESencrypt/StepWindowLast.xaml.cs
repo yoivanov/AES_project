@@ -1,13 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Controls.Primitives;
 using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
@@ -18,12 +15,11 @@ using System.Windows.Shapes;
 namespace AESencrypt
 {
     /// <summary>
-    /// Interaction logic for StepWIndow.xaml
+    /// Interaction logic for StepWindowLast.xaml
     /// </summary>
-    public partial class StepWIndow : Window
+    public partial class StepWindowLast : Window
     {
-
-        public StepWIndow(int roundIndex)
+        public StepWindowLast(int roundIndex)
         {
             InitializeComponent();
 
@@ -67,15 +63,10 @@ namespace AESencrypt
 
             MatrixModel[] afterShiftRows = App.GetAfterShiftRows(adjustedIndex);
 
-            BeforeMixColumns.ItemsSource = App.GetBeforeMixColumns(adjustedIndex);
-            AfterMixColumns.ItemsSource = App.GetAfterMixColumns(adjustedIndex);
-
             BeforeRoundKey.ItemsSource = App.GetBeforeRoundKey(adjustedIndex);
             RoundKey.ItemsSource = App.GetRoundKey(adjustedIndex);
             AfterRoundKey.ItemsSource = App.GetAfterRoundKey(adjustedIndex);
-
         }
-
         private void SBoxButton_Click(object sender, RoutedEventArgs e)
         {
             SBoxWindow SBox = new SBoxWindow();

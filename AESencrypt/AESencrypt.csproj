@@ -80,6 +80,9 @@
     <Compile Include="StepWIndow.xaml.cs">
       <DependentUpon>StepWIndow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="StepWindowLast.xaml.cs">
+      <DependentUpon>StepWindowLast.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Verify.cs" />
     <Page Include="InitialStateWindow.xaml">
       <SubType>Designer</SubType>
@@ -103,6 +106,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="StepWIndow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="StepWindowLast.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
