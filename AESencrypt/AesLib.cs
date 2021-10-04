@@ -851,13 +851,14 @@ namespace AesLib
             List<byte> encryptedResult = new List<byte>();
 
             // Splitting the message into blocks
-            for (int i = 0; i < text.Length; i = i + 16)
+            for (int i = 0; i < text.Length; i += 16)
             {
                 if (text.Length - i < 16)
                 {
                     //if the last block is smaller than our needed chunk size, add the needed number of spaces
                     //blocks.Add(text.Substring(i) + new string((char)0x00, 16 - (text.Length - i)));
-                    blocks.Add(text.Substring(i) + new string(' ', 16 - (text.Length - i)));
+                    blocks.Add(text.Substring(i) + new string((char)0x80, 1) + new string((char)0x00, 16 - (text.Length - i - 1)));
+                    //blocks.Add(text.Substring(i) + new string(' ', 16 - (text.Length - i)));
                 }
                 else
                 {
@@ -1000,7 +1001,7 @@ namespace AesLib
             List<byte> encryptedResult = new List<byte>();
 
             // Splitting the message into blocks
-            for (int a = 0; a < text.Length; a = a + 32)
+            for (int a = 0; a < text.Length; a += 32)
             {
                 // two symbols from a decryption input string make one hexadecimal number
 

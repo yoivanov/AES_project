@@ -141,7 +141,9 @@ namespace AESencrypt
 
         private void SBoxButton_Click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show(App.ShowSbox());
+            //MessageBox.Show(App.ShowSbox());
+            SBoxWindow sBox = new SBoxWindow();
+            sBox.Show();
         }
 
         private void RoundConstantButton_Click(object sender, RoutedEventArgs e)
